@@ -14,7 +14,7 @@
 
         <p>Ingresa tus datos para acceder al sistema.</p>
 
-        <form id="formAcceso">
+        <form id="formAcceso" method="POST" action="../html/pacient-encuest.html">
           <!-- Cédula -->
           <div class="campo">
             <label for="cedula"> Cédula </label>
@@ -37,8 +37,15 @@
 
           <!-- Botón -->
           <button type="submit">Ingresar</button>
+         
         </form>
+         
       </section>
+
+      <div class="acciones">
+        <a href="../index.php" class="boton-link">Volver al inicio</a>
+        <a href="../html/pacient-pp.php" class="boton-link boton-link-secondary">Ver documentos</a>
+      </div>
     </main>
 
     <!-- JavaScript -->
@@ -140,6 +147,45 @@
         outline: none;
 
         border-color: #0d6efd;
+      }
+
+      .acciones {
+        width: 100%;
+        max-width: 450px;
+        margin: 18px auto 0;
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .boton-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 180px;
+        padding: 12px 18px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #0d6efd, #3d8bfd);
+        color: white;
+        text-decoration: none;
+        font-weight: 700;
+        box-shadow: 0 8px 18px rgba(13, 110, 253, 0.22);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+      }
+
+      .boton-link:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 20px rgba(13, 110, 253, 0.25);
+      }
+
+      .boton-link-secondary {
+        background: linear-gradient(135deg, #495057, #6c757d);
+        box-shadow: 0 8px 18px rgba(73, 80, 87, 0.18);
+      }
+
+      .boton-link-secondary:hover {
+        box-shadow: 0 12px 20px rgba(73, 80, 87, 0.25);
       }
 
       button {
