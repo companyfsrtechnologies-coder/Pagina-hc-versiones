@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Encuesta de satisfacción</title>
+  </head>
+
+  <body>
+    <main class="contenedor">
+      <section class="encuesta">
+        <h1>Encuesta de satisfacción</h1>
+
+        <p>Tu opinión nos ayuda a mejorar la atención brindada.</p>
+
+        <form>
+          <!-- Pregunta 1 -->
+          <div class="pregunta">
+            <label> 1. ¿Cómo calificarías la atención recibida? </label>
+
+            <div class="opciones">
+              <label>
+                <input
+                  type="radio"
+                  name="atencion"
+                  value="Excelente"
+                  required
+                />
+                Excelente
+              </label>
+
+              <label>
+                <input type="radio" name="atencion" value="Muy buena" />
+                Muy buena
+              </label>
+
+              <label>
+                <input type="radio" name="atencion" value="Buena" />
+                Buena
+              </label>
+
+              <label>
+                <input type="radio" name="atencion" value="Regular" />
+                Regular
+              </label>
+
+              <label>
+                <input type="radio" name="atencion" value="Mala" />
+                Mala
+              </label>
+            </div>
+          </div>
+
+          <!-- Pregunta 2 -->
+          <div class="pregunta">
+            <label> 2. ¿El personal fue amable y respetuoso? </label>
+
+            <div class="opciones">
+              <label>
+                <input type="radio" name="personal" value="Si" required />
+                Sí
+              </label>
+
+              <label>
+                <input type="radio" name="personal" value="No" />
+                No
+              </label>
+            </div>
+          </div>
+
+          <!-- Pregunta 3 -->
+          <div class="pregunta">
+            <label> 3. ¿Cómo calificarías el tiempo de espera? </label>
+
+            <select name="espera" required>
+              <option value="">Selecciona una opción</option>
+
+              <option value="Muy corto">Muy corto</option>
+
+              <option value="Corto">Corto</option>
+
+              <option value="Aceptable">Aceptable</option>
+
+              <option value="Largo">Largo</option>
+
+              <option value="Muy largo">Muy largo</option>
+            </select>
+          </div>
+
+          <!-- Pregunta 4 -->
+          <div class="pregunta">
+            <label>
+              4. ¿Encontraste las instalaciones limpias y ordenadas?
+            </label>
+
+            <div class="opciones">
+              <label>
+                <input type="radio" name="instalaciones" value="Si" required />
+                Sí
+              </label>
+
+              <label>
+                <input type="radio" name="instalaciones" value="No" />
+                No
+              </label>
+            </div>
+          </div>
+
+          <!-- Pregunta 5 -->
+          <div class="pregunta">
+            <label>
+              5. ¿Qué tan satisfecho estás con la atención recibida?
+            </label>
+
+            <select name="satisfaccion" required>
+              <option value="">Selecciona una opción</option>
+
+              <option value="5">⭐⭐⭐⭐⭐ Muy satisfecho</option>
+
+              <option value="4">⭐⭐⭐⭐ Satisfecho</option>
+
+              <option value="3">⭐⭐⭐ Neutral</option>
+
+              <option value="2">⭐⭐ Poco satisfecho</option>
+
+              <option value="1">⭐ Nada satisfecho</option>
+            </select>
+          </div>
+
+          <!-- Pregunta 6 -->
+          <div class="pregunta">
+            <label for="comentarios">
+              6. ¿Tienes algún comentario o sugerencia?
+            </label>
+
+            <textarea
+              id="comentarios"
+              name="comentarios"
+              rows="5"
+              placeholder="Escribe aquí tu comentario..."
+            ></textarea>
+          </div>
+
+          <button type="submit">Enviar encuesta</button>
+        </form>
+      </section>
+    </main>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f5f8;
+        min-height: 100vh;
+      }
+
+      .contenedor {
+        width: 100%;
+        max-width: 700px;
+        margin: 40px auto;
+        padding: 20px;
+      }
+
+      .encuesta {
+        background-color: white;
+        padding: 35px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      }
+
+      .encuesta h1 {
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .encuesta > p {
+        text-align: center;
+        color: #666;
+        margin-bottom: 30px;
+      }
+
+      .pregunta {
+        margin-bottom: 30px;
+      }
+
+      .pregunta > label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 12px;
+      }
+
+      .opciones {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .opciones label {
+        font-weight: normal;
+      }
+
+      .opciones input {
+        margin-right: 8px;
+      }
+
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 15px;
+      }
+
+      textarea {
+        resize: vertical;
+      }
+
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #0d6efd;
+      }
+
+      button {
+        width: 100%;
+        padding: 13px;
+        border: none;
+        border-radius: 6px;
+        background-color: #0d6efd;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #0b5ed7;
+      }
+    </style>
+  </body>
+</html>

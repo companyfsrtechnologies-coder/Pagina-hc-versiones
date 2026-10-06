@@ -1,0 +1,125 @@
+/* estilos para el apartado de documentos */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.body-docsconsulta {
+  margin: 0;
+  padding: 0;
+}
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0;
+  background-color: #08c1fa;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  gap: 5px;
+  flex-wrap: inherit;
+}
+a {
+  color: #ffffff;
+  font-family: Arial;
+  text-decoration: none;
+}
+.img-logohc {
+  background-color: white;
+}
+.navbar {
+  top: 0;
+  margin-top: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+#offcanvasDarkNavbar {
+  background-color: #1e3a5f;
+  color: white;
+}
+.container-fluid {
+  background-color: #1e3a5f;
+  color: white;
+}
+.navbar > .container-fluid {
+  display: flex;
+  flex-wrap: inherit;
+  align-items: center;
+  justify-content: space-between;
+}
+.ejemplo-docsconsulta {
+  width: 15%;
+  margin: 20px auto 0px;
+  padding: 0 10px;
+  border: 2px solid #34b6bb;
+  text-align: center;
+}
+@media (max-width: 768px) {
+  .ejemplo-docsconsulta {
+    width: 80%;
+  }
+  .categorias-documentos {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los botones bajen si no entran */
+    gap: 15px;
+  }
+}
+
+.ejemplo-docsconsulta h1,
+.ejemplo-docsconsulta h2,
+.ejemplo-docsconsulta h3,
+.ejemplo-docsconsulta p {
+  margin: 10px;
+  height: 300px;
+}
+
+.categorias-documentos .btn-group {
+  margin-bottom: 15px !important;
+  margin-right: 10px !important;
+  display: inline-flex !important;
+}
+
+/* Por si acaso Bootstrap estire los botones de forma extraña */
+.categorias-documentos .btn-group .btn {
+  margin: 0 !important;
+}
+
+/*fin de estilos para el apartado de documentos */
+.universal-container-pacient-dc {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+/* estilos para el apartado de ayuda */
+.body-ayudapacient {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  gap: 20px;
+  font-family: arial;
+  text-align: center;
+  gap: 15px;
+}
+.body-ayudapacient .video-ayudapacient {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 2px solid #34b6bb;
+  border-radius: 10px;
+  background-clip: content-box;
+  background-color: #659ddd;
+  box-shadow: inset 0 0 0 20px #3075cf;
+  width: fit-content;
+}
+.card {
+  width: 20% !important;
+  border-radius: 10px;
+}
+/*fin de estilos para el apartado de ayuda */
