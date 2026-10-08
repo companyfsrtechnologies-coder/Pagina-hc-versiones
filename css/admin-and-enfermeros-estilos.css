@@ -1,15 +1,126 @@
-/*INGRASO ADMIN */
+:root {
+  --site-bg: #edf6ff;
+  --site-surface: #ffffff;
+  --site-surface-alt: #f4f9ff;
+  --site-primary: #173d63;
+  --site-primary-strong: #0e2d4d;
+  --site-accent: #2a7acb;
+  --site-accent-strong: #1d5fa5;
+  --site-secondary: #34b6bb;
+  --site-text: #1f2937;
+  --site-muted: #5d7288;
+  --site-border: rgba(148, 163, 184, 0.28);
+  --site-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+}
+
 html,
 body {
   margin: 0;
   padding: 0;
   width: 100%;
   min-height: 100%;
-  background-color: #fcfdfd;
+  background: linear-gradient(180deg, #f2f8ff 0%, #eaf3ff 100%);
+  color: var(--site-text);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+
+body {
+  min-height: 100vh;
+}
+
 header {
   width: 100%;
-  background-color: #0c6af7;
+  background: linear-gradient(135deg, #173d63 0%, #225d95 100%);
+  box-shadow: 0 8px 24px rgba(23, 61, 99, 0.15);
+}
+
+.navbar-dark.bg-dark,
+.navbar {
+  background: linear-gradient(135deg, #173d63 0%, #225d95 100%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 22px rgba(23, 61, 99, 0.12);
+}
+
+.navbar-brand,
+.navbar .nav-link,
+.navbar .btn {
+  color: #fff !important;
+}
+
+.card {
+  border: 1px solid var(--site-border) !important;
+  box-shadow: var(--site-shadow) !important;
+  border-radius: 22px !important;
+  overflow: hidden;
+}
+
+.card-header {
+  background: linear-gradient(135deg, #edf6ff 0%, #f7fbff 100%) !important;
+  border-bottom: 1px solid var(--site-border) !important;
+}
+
+.table thead.table-dark {
+  background: linear-gradient(135deg, #173d63 0%, #215d94 100%) !important;
+}
+
+.table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background: rgba(42, 122, 203, 0.04);
+}
+
+.btn-success,
+.btn-primary,
+.btn-outline-primary,
+.btn-outline-danger,
+.btn-outline-secondary {
+  border-radius: 999px !important;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.btn-success,
+.btn-primary {
+  background: linear-gradient(135deg, #2a7acb, #1d5fa5) !important;
+  border: none !important;
+  box-shadow: 0 8px 18px rgba(42, 122, 203, 0.18);
+}
+
+.btn-success:hover,
+.btn-primary:hover,
+.btn-outline-primary:hover,
+.btn-outline-danger:hover,
+.btn-outline-secondary:hover {
+  transform: translateY(-1px);
+}
+
+.btn-outline-primary {
+  border-color: #2a7acb !important;
+  color: #1d5fa5 !important;
+}
+
+.btn-outline-secondary {
+  border-color: rgba(23, 61, 99, 0.25) !important;
+  color: var(--site-primary) !important;
+}
+
+.btn-outline-danger {
+  border-color: rgba(220, 53, 69, 0.35) !important;
+}
+
+.universal-container-men-admin,
+.universal-container-men-enf {
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  padding: 0 18px 32px;
+}
+
+.universal-container-men-admin .container,
+.universal-container-men-enf .container {
+  max-width: 1200px;
 }
 .bienvenida {
   display: flex;

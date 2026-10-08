@@ -35,14 +35,14 @@
         </div>
         <a href="pacient-help.php" class="btn btn-primary btn-help">Ayuda</a>
         <a href="pacient-regist.php" class="btn btn-primary btn-help">Encuestas</a>
-        <a href="index.php" class="btn btn-primary btn-help">Volver al inicio</a>
+        <a href="../index.php" class="btn btn-primary btn-help">Volver al inicio</a>
       </header>
 
       <main class="categorias-documentos">
         <div class="btn-group">
           <div class="doc-header">
             <img src="../img/logo-laboratorio.png" class="img-consulta" alt="Laboratorio" />
-            <span>Labratorio</span>
+            <span>Laboratorio</span>
           </div>
           <details class="especialidad-panel">
             <summary>Ver especialidades</summary>

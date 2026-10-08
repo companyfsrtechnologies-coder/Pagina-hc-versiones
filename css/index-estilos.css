@@ -1,6 +1,6 @@
 :root {
-  --primary: #1b6fb8;
-  --primary-dark: #134f8c;
+  --primary: #173d63;
+  --primary-dark: #0f2d49;
   --secondary: #eaf5ff;
   --accent: #dfeefb;
   --text: #17324d;
@@ -43,8 +43,8 @@ img {
 }
 
 header {
-  background: linear-gradient(90deg, #0f5fa8 0%, #2f8ad6 100%);
-  box-shadow: 0 8px 24px rgba(31, 99, 155, 0.18);
+  background: linear-gradient(90deg, #173d63 0%, #225d95 100%);
+  box-shadow: 0 8px 24px rgba(23, 61, 99, 0.18);
   padding: 1.25rem 0;
 }
 
@@ -230,7 +230,9 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1.2rem 0;
+  gap: 2rem;
+  padding: 1.5rem 1.25rem;
+  flex-wrap: wrap;
 }
 
 .redes-sociales {
@@ -256,6 +258,26 @@ footer {
 .redes-sociales a:hover {
   background: rgba(255, 255, 255, 0.22);
   transform: translateY(-2px);
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  text-align: center;
+}
+
+.contact-info p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+}
+
+.contact-info p:first-child {
+  font-weight: 700;
 }
 
 .redes-sociales img {

@@ -33,9 +33,8 @@
             <span class="eyebrow">Portal interactivo del hospital</span>
             <h2 class="bien-venida">Bienvenido</h2>
             <p>
-              Es traído a usted nuestro portal interactivo, diseñado para ofrecer
-              una mejor experiencia de recuperación y apoyar a todos los
-              funcionarios del hospital.
+             Le damos la bienvenida a nuestro portal de documentación médica, diseñado para facilitar a nuestros pacientes el acceso rápido y seguro a información, indicaciones y recomendaciones relacionadas con su atención en el hospital.
+             Nuestro objetivo es acompañarlo y brindarle la información necesaria para el cuidado de su salud.
             </p>
           </div>
         </section>
@@ -81,9 +80,14 @@
 
       <footer>
         <div class="redes-sociales">
-          <a href="#" aria-label="YouTube"><img src="img/logo-yt.png" alt="YouTube" /></a>
-          <a href="#" aria-label="Instagram"><img src="img/logo-ig.png" alt="Instagram" /></a>
-          <a href="#" aria-label="Twitter"><img src="img/logo-twitter.png" alt="Twitter" /></a>
+          <a href="https://www.youtube.com/user/CETECIHCURUGUAY" aria-label="YouTube"><img src="img/logo-yt.png" alt="YouTube" /></a>
+          <a href="https://www.instagram.com/hclinicasuy?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==" aria-label="Instagram"><img src="img/logo-ig.png" alt="Instagram" /></a>
+          <a href="https://x.com/hcmquintela?s=20" aria-label="Twitter"><img src="img/logo-twitter.png" alt="Twitter" /></a>
+        </div>
+        <div class="contact-info">
+          <p>Hospital de Clínicas - Montevideo, Uruguay</p>
+          <p>Teléfono: 1953 / 0800 1953</p>
+          <p>Email: atencionalusuario@hc.edu.uy</p>
         </div>
       </footer>
     </div>

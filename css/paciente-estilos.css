@@ -5,8 +5,23 @@
   box-sizing: border-box;
 }
 
+:root {
+  --site-bg: #edf6ff;
+  --site-surface: rgba(255, 255, 255, 0.9);
+  --site-primary: #173d63;
+  --site-primary-strong: #0f2d49;
+  --site-accent: #2a7acb;
+  --site-secondary: #34b6bb;
+  --site-text: #1f2937;
+  --site-muted: #5d7288;
+  --site-border: rgba(148, 163, 184, 0.28);
+  --site-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+}
+
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(180deg, #edf6ff 0%, #f5f8fc 100%);
+  color: var(--site-text);
 }
 
 .body-docsconsulta {
@@ -14,7 +29,16 @@ body {
   padding: 24px 16px;
   background: linear-gradient(180deg, #edf6ff 0%, #f5f8fc 100%);
   min-height: 100vh;
-  color: #1f2937;
+  color: var(--site-text);
+}
+
+.universal-container-pacient-dc,
+.container,
+.body-ayudapacient .container {
+  background: var(--site-surface);
+  border: 1px solid var(--site-border);
+  border-radius: 22px;
+  box-shadow: var(--site-shadow);
 }
 
 .universal-container-pacient-dc {
@@ -33,6 +57,7 @@ body {
   z-index: 1000;
   background: linear-gradient(135deg, #173d63, #214d76);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 22px rgba(23, 61, 99, 0.12);
 }
 
 .navbar-brand {
@@ -278,9 +303,8 @@ body {
   margin: 0;
   padding: 0;
   gap: 20px;
-  font-family: arial;
+  font-family: Arial, sans-serif;
   text-align: center;
-  gap: 15px;
 }
 
 .body-ayudapacient .video-ayudapacient {
@@ -297,4 +321,159 @@ body {
 .card .card-img-top {
   width: 20% !important;
 }
+
+.paciente-page-shell {
+  width: min(960px, 100%);
+  margin: 36px auto;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--site-border);
+  border-radius: 24px;
+  box-shadow: var(--site-shadow);
+  overflow: hidden;
+}
+
+.paciente-page-card {
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid var(--site-border);
+  box-shadow: var(--site-shadow);
+}
+
+.paciente-page-body {
+  padding: 28px 24px 32px;
+}
+
+.paciente-page-body h1,
+.paciente-page-body h2,
+.paciente-page-body h3 {
+  color: var(--site-primary);
+}
+
+.paciente-page-body p,
+.paciente-page-body li {
+  color: var(--site-text);
+  line-height: 1.7;
+}
+
+.paciente-login-shell {
+  width: min(520px, 100%);
+  margin: 36px auto;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--site-border);
+  border-radius: 24px;
+  box-shadow: var(--site-shadow);
+  overflow: hidden;
+}
+
+.paciente-login-header {
+  padding: 1.6rem 1.6rem 1rem;
+  background: linear-gradient(135deg, #173d63 0%, #245c96 100%);
+  color: #fff;
+}
+
+.paciente-login-header h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  color: #fff;
+}
+
+.paciente-login-header p {
+  margin: 0.5rem 0 0;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.paciente-login-form {
+  padding: 1.6rem;
+}
+
+.paciente-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.paciente-field label {
+  font-weight: 700;
+  color: var(--site-primary);
+}
+
+.paciente-field input {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid #cfe0f2;
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  background: #f9fbff;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.paciente-field input:focus {
+  outline: none;
+  border-color: #2a7acb;
+  box-shadow: 0 0 0 4px rgba(42, 122, 203, 0.12);
+}
+
+.paciente-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 1rem;
+}
+
+.paciente-btn,
+.paciente-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.8rem 1.3rem;
+  border-radius: 999px;
+  border: 0;
+  text-decoration: none;
+  font-weight: 700;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.paciente-btn {
+  background: linear-gradient(135deg, #2a7acb 0%, #1d5fa5 100%);
+  color: #fff;
+  box-shadow: 0 10px 18px rgba(42, 122, 203, 0.18);
+}
+
+.paciente-btn-secondary {
+  background: linear-gradient(135deg, #5b6d7e 0%, #486279 100%);
+  color: #fff;
+  box-shadow: 0 10px 18px rgba(74, 93, 110, 0.18);
+}
+
+.paciente-btn:hover,
+.paciente-btn-secondary:hover {
+  transform: translateY(-1px);
+}
+
+.paciente-help-list {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.paciente-help-list li {
+  margin-bottom: 0.85rem;
+}
+
+.paciente-help-video {
+  width: min(100%, 640px);
+  border-radius: 18px;
+  margin: 0.75rem 0 1.25rem;
+  border: 1px solid var(--site-border);
+  box-shadow: var(--site-shadow);
+}
+
 /*fin de estilos para el apartado de ayuda */

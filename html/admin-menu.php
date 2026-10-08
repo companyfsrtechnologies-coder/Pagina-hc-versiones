@@ -47,6 +47,7 @@ $resultadoUsuarios = $conn->execute_query($sql);
       <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="#"> Menú de administración </a>
+          <a href="../index.php" class="btn btn-primary btn-help">Volver al inicio</a>
         </div>
       </nav>
       <header class="decorado-men-admin"></header>
@@ -76,9 +77,9 @@ $resultadoUsuarios = $conn->execute_query($sql);
       <table class="table table-hover align-middle mb-0">
         <thead class="table-dark">
           <tr>
-            <th scope="col" class="ps-4">titulo</th>
-            <th scope="col">Descripcion</th>
-            <th scope="col">Fecha de creacion</th>
+            <th scope="col" class="ps-4">Título</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Fecha de creación</th>
             <th scope="col" class="text-center pe-4">Acciones</th>
           </tr>
         </thead>

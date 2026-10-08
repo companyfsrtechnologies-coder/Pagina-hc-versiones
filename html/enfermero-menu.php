@@ -13,11 +13,11 @@ $resultadoPaginas = $conn->execute_query($sqlpagina);
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>menú enfermero</title>
+    <title>Menú enfermero</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css"
@@ -44,67 +44,8 @@ $resultadoPaginas = $conn->execute_query($sqlpagina);
     <div class="universal-container-men-enf">
       <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#"> Menú de enfermeria </a>
-
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasDarkNavbar"
-            aria-controls="offcanvasDarkNavbar"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <div
-            class="offcanvas offcanvas-end text-bg-dark"
-            tabindex="-1"
-            id="offcanvasDarkNavbar"
-            aria-labelledby="offcanvasDarkNavbarLabel"
-          >
-            <div class="offcanvas-header">
-              <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
-                Menú de opciones
-              </h5>
-
-              <button
-                type="button"
-                class="btn-close btn-close-white"
-                data-bs-dismiss="offcanvas"
-                aria-label="Close"
-              ></button>
-            </div>
-
-            <div class="offcanvas-body">
-              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                <li class="nav-item">
-                  <a
-                    class="nav-link active"
-                    aria-current="page"
-                    href="../index.html"
-                  >
-                    Inicio
-                  </a>
-                </li>
-
-                <li class="nav-item">
-                  <a class="nav-link" href="#"> lista de documentos creados </a>
-                </li>
-              </ul>
-
-              <form class="d-flex mt-3" role="search">
-                <input
-                  class="form-control me-2"
-                  type="search"
-                  placeholder="Buscar"
-                  aria-label="Search"
-                />
-
-                <button class="btn btn-success" type="submit">Buscar</button>
-              </form>
-            </div>
-          </div>
+          <a class="navbar-brand" href="#"> Menú de enfermería </a>
+          <a href="../index.php" class="btn btn-primary btn-help">Volver al inicio</a>
         </div>
       </nav>
       <header class="decorado-men-admin"></header>
@@ -121,7 +62,6 @@ $resultadoPaginas = $conn->execute_query($sqlpagina);
           Gestiona los documentos del sistema.
         </p>
       </div>
-
       <a
         href="enfermero-edit-text.php"
         class="btn btn-success d-inline-flex align-items-center justify-content-center gap-2"
@@ -134,10 +74,10 @@ $resultadoPaginas = $conn->execute_query($sqlpagina);
       <table class="table table-hover align-middle mb-0">
         <thead class="table-dark">
           <tr>
-            <th scope="col" class="ps-4">titulo</th>
-            <th scope="col">especialidad</th>
-            <th scope="col">categoria</th>
-            <th scope="col">fecha de actualizacion</th>
+            <th scope="col" class="ps-4">Título</th>
+            <th scope="col">Especialidad</th>
+            <th scope="col">Categoría</th>
+            <th scope="col">Fecha de actualización</th>
             <th scope="col" class="text-center pe-4">Acciones</th>
           </tr>
         </thead>

@@ -1,9 +1,9 @@
-actualización la versión 1.0.1 de la pagina del Hospital de Clínicas tiene los siguientes cambios:
+Actualización de la versión 1.0.1 de la página del Hospital de Clínicas. Los cambios principales son los siguientes:
 
-- El formato de los archivos ".html" se cambiaron a ".php".
-- sea hecho la conexión del servidor con la base de datos.
-- sean desarrollado las funciones de gestión de documentación(crear, borrar y editar documentos) y de la misma forma las funcionalidades de gestión de usuarios y encuestas
-- Para la prueba de la lectura de los documentos destinados a los pacientes deberá acceder a la interfaz de Pacientes deberá ingresar sin logarse presionando el botón de ver documentos y una vez hecho eso ingresara a la sección donde se encuentran las diferentes categorías al presionar cualquiera de los botones debajo del nombre de las categorías. Se desplegara un menú con sus respectivas especialidades. De momento la única especialidad con documentos de prueba es la que se encuentra en categoría de laboratorio, en la especialidad de hematología. Para finalizar debe presionar el botón de leer y accederá al documento.
-- Los datos de prueba que se deberán utilizar para acceder a las distintas interfaces de usuario para los roles de administrador y enfermero:
-  1. Nombre de usuario: Administrador Contraseña: Administrador
-  2. Nombre de usuario: Enfermero Contraseña: Enfermero
+- Los archivos ".html" fueron convertidos a ".php".
+- Se realizó la conexión del servidor con la base de datos.
+- Se desarrollaron las funciones de gestión documental (crear, borrar y editar documentos), así como las funcionalidades de gestión de usuarios y encuestas.
+- Para probar la lectura de documentos destinados a pacientes, debe acceder a la interfaz de Pacientes, ingresar sin iniciar sesión presionando el botón de ver documentos. Luego, al entrar, podrá acceder a la sección de categorías y, al presionar cualquiera de los botones debajo del nombre de cada categoría, se desplegará un menú con sus respectivas especialidades. Por el momento, la única especialidad con documentos de prueba es la categoría de laboratorio, en la especialidad de hematología. Para finalizar, debe presionar el botón de leer para acceder al documento.
+- Los datos de prueba para acceder a las distintas interfaces de usuario según el rol son los siguientes:
+  1. Nombre de usuario: Administrador | Contraseña: Administrador
+  2. Nombre de usuario: Enfermero | Contraseña: Enfermero
