@@ -11,6 +11,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="../css/paciente-estilos.css" />
+    <link rel="stylesheet" href="../css/botones-estilos.css" />
   </head>
   <body class="body-docsconsulta">
     <div class="paciente-page-shell">

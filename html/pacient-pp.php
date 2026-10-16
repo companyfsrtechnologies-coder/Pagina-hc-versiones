@@ -13,6 +13,7 @@
     />
 
     <link rel="stylesheet" href="../css/paciente-estilos.css" />
+    <link rel="stylesheet" href="../css/botones-estilos.css" />
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
@@ -24,8 +25,14 @@
     <div class="universal-container-pacient-dc">
       <nav class="navbar navbar-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="../index.php">Documentación de consulta</a>
-        </div>
+          <section class="pantallas-secundarias">
+          <span class="eyebrow">Revisa tus documentos</span>
+          <h2>Documentos de consulta</h2>
+          <p>
+            Selecciona la categoría que corresponde a tu atención para acceder a la
+            información y documentos disponibles.
+          </p>
+        </section>
       </nav>
 
       <header class="header-docsconsulta">
@@ -81,15 +88,6 @@
             </ul>
           </details>
         </div>
-
-        <section class="pantallas-secundarias">
-          <span class="eyebrow">Revisa tus documentos</span>
-          <h2>Documentos de consulta</h2>
-          <p>
-            Selecciona la categoría que corresponde a tu atención para acceder a la
-            información y documentos disponibles.
-          </p>
-        </section>
       </main>
     </div>
   </body>

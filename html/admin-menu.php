@@ -34,6 +34,7 @@ $resultadoUsuarios = $conn->execute_query($sql);
     />
 
     <link rel="stylesheet" href="../css/admin-and-enfermeros-estilos.css" />
+    <link rel="stylesheet" href="../css/botones-estilos.css" />
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
@@ -169,7 +170,6 @@ $resultadoUsuarios = $conn->execute_query($sql);
           <tr>
             <th scope="col" class="ps-4">Nombre</th>
             <th scope="col">Rol</th>
-            <th scope="col">Contraseña</th>
             <th scope="col">Estado</th>
             <th scope="col" class="text-center pe-4">Acciones</th>
           </tr>
@@ -186,11 +186,6 @@ $resultadoUsuarios = $conn->execute_query($sql);
                 <td>
                   <span class="badge text-bg-primary rounded-pill px-3 py-2">
                     <?php echo htmlspecialchars($fila['rol']); ?>
-                  </span>
-                </td>
-                <td>
-                  <span class="badge text-bg-success rounded-pill px-3 py-2">
-                    <?php echo password_hash($fila['contrasena'], PASSWORD_DEFAULT); ?>
                   </span>
                 </td>
                 <td>
