@@ -32,33 +32,25 @@
 
         <ul class="paciente-help-list">
           <li>
-            Para su comodidad, dentro del sistema se ha instalado un menú lateral
-            con categorías y especialidades para facilitar la búsqueda de documentos.
+            para aceder a la documentación debera acer clic en el boton de "ver especilidades" de la categoria corespodiente 
+            al documento que este buscando, luego de esto se le mostrara un listado de documentos disponibles para esa categoria, 
+            para ver el documento debera acer clic en el boton "ver documento" 
+            y se le abrira una lista de las especialidades de dicha categoría, 
+            seleccione la especialidad correspondiente y esto lo mandara a la página donde entrara los documentos. 
+            Al ingresar lo suigiente que debe haceer es seleccionar el documento que desea ver, hacer clic en el boton "ver documento" 
+            y esto lo mandara a la página donde se le mostrara el documento apretar el botón de leer ya estara dentro del documento.
           </li>
           <video
             class="paciente-help-video"
-            src="../video/2026-08-18 23-28-30.mp4"
+            src="../video/tutorial-acceso-documentos.mp4"
             controls
             controlsList="nodownload"
             oncontextmenu="return false;"
           ></video>
           <li>
-            Si necesitas asistencia adicional, puedes contactar a nuestro equipo de
-            soporte a través del correo electrónico o el número de teléfono
-            proporcionados en la sección de contacto.
+            Para acceder a la sección de encuestas, deberá hacer clic en el botón "Encuestas" en el menú principal.
+            Esto lo llevará a la página de encuestas, donde podrá ver las encuestas disponibles y participar en ellas. Para participar, seleccione la encuesta deseada y siga las instrucciones proporcionadas.
           </li>
-          <li>
-            Para obtener acceso a la sección de encuestas, deberá ingresar su cédula
-            y la fecha de ingreso al hospital. Luego deberá completar la encuesta y
-            enviarla mediante el botón final.
-          </li>
-          <video
-            class="paciente-help-video"
-            src="../video/2026-08-18 23-28-30.mp4"
-            controls
-            controlsList="nodownload"
-            oncontextmenu="return false;"
-          ></video>
         </ul>
       </main>
     </div>
