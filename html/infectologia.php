@@ -1,4 +1,3 @@
-
 <?php
 require_once('conect-bd.php');
 
@@ -10,7 +9,7 @@ if ($idDocumento > 0) {
     $resultadoDocumento = $conn->execute_query(
         "SELECT * FROM documento
          WHERE id_documento = ?
-         AND categoria = 'Tratamientos y medicamentos'
+         AND categoria = 'Enfermedades infecciosas'
          AND especialidad = 'Infectología'",
         [$idDocumento]
     );
@@ -29,7 +28,7 @@ if ($idDocumento > 0) {
 
 $resultadoDocs = $conn->execute_query(
     "SELECT * FROM documento
-     WHERE categoria = 'Tratamientos y medicamentos'
+     WHERE categoria = 'Enfermedades infecciosas'
      AND especialidad = 'Infectología'
      ORDER BY titulo ASC"
 );
@@ -60,8 +59,7 @@ $resultadoDocs = $conn->execute_query(
             Documentación de consulta
           </a>
 
-          <a class="btn btn-outline-light btn-sm"
-             href="paciente-pp.php">
+          <a class="btn btn-outline-light btn-sm" href="paciente-pp.php">
             Volver
           </a>
         </div>
@@ -94,9 +92,7 @@ $resultadoDocs = $conn->execute_query(
 
                   <p>
                     <?php
-                    echo nl2br(
-                        htmlspecialchars($pagina['contenido'])
-                    );
+                    echo nl2br(htmlspecialchars($pagina['contenido']));
                     ?>
                   </p>
 
