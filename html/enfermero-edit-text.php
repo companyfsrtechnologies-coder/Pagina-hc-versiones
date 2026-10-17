@@ -15,10 +15,14 @@ $datosDocumento = [
     'especialidad' => ''
 ];
 $especialidadesPorCategoria = [
-    'Laboratorio' => ['Hematología', 'Bioquímica', 'Microbiología'],
+    'Estudios de laboratorio' => ['Hematología', 'Bioquímica', 'Microbiología', 'Parasitologia y Micologia'],
     'Salud Mental' => ['Psicología', 'Psiquiatría'],
-    'Cardiovascular' => ['Cardiología', 'Cirugía cardiovascular']
-];
+    'Enfermedades cardiovasculares' => ['Cardiología', 'Insuficiencia cardiovascular', 'Rehabilitación cardíovascular', 'Hemodinámica', 'Electrocardiografía', 'Ecocardiografía', 'Pruebas de esfuerzo', 'Monitoreo ambulatorio de presión arterial'],
+    'Diagnóstico por imágenes' => ['Imagenología', 'Tomografía', 'Medicina nuclear', 'Ecografía'],
+    'Atención de urgencias' => ['Emergencias', 'Traumatología', 'Urgencias oftalmológicas', 'Urgencias pediátricas', 'Urgencias ginecológicas', 'Urgencias urológicas', "atención de quemaduras", 'Reanimación cardiopulmonar', 'Atención de politraumatismo'],
+    'Tratamientos y medicamentos' => ['Farmacia', 'Información sobre medicamentos', 'Guías y protocolos terapéuticos'],
+    ];
+
 $resultadoPaginas = null;
 
 if ($_SERVER["REQUEST_METHOD"] == 'POST') {
