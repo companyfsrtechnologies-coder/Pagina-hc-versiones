@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="es">
   <head>
@@ -126,6 +125,47 @@
               <li><a href="farmacia.php">Farmacia</a></li>
               <li><a href="informacion-medicamentos.php">Información sobre medicamentos</a></li>
               <li><a href="guias-protocolos.php">Guías y protocolos terapéuticos</a></li>
+            </ul>
+          </details>
+        </div>
+
+        <div class="btn-group">
+          <div class="doc-header">
+            <span>🧠</span>
+            <span>Salud mental</span>
+          </div>
+          <details class="especialidad-panel">
+            <summary>Ver especialidades</summary>
+            <ul class="especialidad-menu">
+              <li><a href="psicologia.php">Psicología</a></li>
+              <li><a href="psiquiatria.php">Psiquiatría</a></li>
+            </ul>
+          </details>
+        </div>
+
+        <div class="btn-group">
+          <div class="doc-header">
+            <span>🫘</span>
+            <span>Salud renal</span>
+          </div>
+          <details class="especialidad-panel">
+            <summary>Ver especialidades</summary>
+            <ul class="especialidad-menu">
+              <li><a href="nefrologia.php">Nefrología</a></li>
+              <li><a href="hemodialisis.php">Hemodiálisis</a></li>
+            </ul>
+          </details>
+        </div>
+
+        <div class="btn-group">
+          <div class="doc-header">
+            <span>🦠</span>
+            <span>Enfermedades infecciosas</span>
+          </div>
+          <details class="especialidad-panel">
+            <summary>Ver especialidades</summary>
+            <ul class="especialidad-menu">
+              <li><a href="infectologia.php">Infectología</a></li>
             </ul>
           </details>
         </div>
