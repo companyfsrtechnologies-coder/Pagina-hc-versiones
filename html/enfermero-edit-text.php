@@ -46,12 +46,12 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
         }
     } else {
         if ($idDocumento) {
-            $sqlUpdateDocumento = "UPDATE documento SET titulo = ?, categoria = ?, especialidad = ? WHERE id_documento = ?";
+            $sqlUpdateDocumento = "UPDATE documento SET titulo = ?, categoria = ?, especialidad = ?, fecha_act = CURRENT_TIMESTAMP WHERE id_documento = ?";
             $stmtUpdateDocumento = $conn->prepare($sqlUpdateDocumento);
             $stmtUpdateDocumento->bind_param("sssi", $titulo, $categoria, $especialidad, $idDocumento);
             $stmtUpdateDocumento->execute();
         } else {
-            $sqlInsertDocumento = "INSERT INTO documento (titulo, categoria, especialidad, id_usuario) VALUES (?, ?, ?, ?)";
+            $sqlInsertDocumento = "INSERT INTO documento (titulo, categoria, especialidad, id_usuario, fecha_act) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)";
             $stmtInsertDocumento = $conn->prepare($sqlInsertDocumento);
             $stmtInsertDocumento->bind_param("sssi", $titulo, $categoria, $especialidad, $idUsuarioActual);
             $stmtInsertDocumento->execute();
@@ -85,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
             }
         }
 
-        header("Location: enfermero-edit-text.php?id=" . $idDocumento);
+        header("Location: enfermero-menu.php");
         exit;
     }
 }
@@ -167,7 +167,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'GET') {
     <div class="container">
         <div class="card card-custom">
             <div class="card-header-custom">
-                <h1 class="h3 mb-0">Editar documento</h1>
+                <h1 class="h3 mb-0"><?= isset($idDocumento) ? 'Editar Documento' : 'Crear Documento'; ?></h1>
             </div>
             <div class="card-body p-4 p-md-5">
                 <form action="" method="POST">
@@ -252,7 +252,9 @@ if ($_SERVER["REQUEST_METHOD"] == 'GET') {
                                 </button>
                                 <a href="enfermero-menu.php" class="btn btn-outline-secondary">Volver</a>
                             </div>
-                            <button type="submit" class="btn btn-primary px-4">Guardar cambios</button>
+                            <button type="submit" class="btn btn-primary px-4">
+                                <?= isset($idDocumento) ? 'Guardar cambios' : 'Crear documento'; ?>
+                            </button>
                         </div>
                     </div>
                 </form>
