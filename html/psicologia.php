@@ -8,8 +8,8 @@ if ($idDocumento > 0) {
     $resultadoDocumento = $conn->execute_query(
         "SELECT * FROM documento
          WHERE id_documento = $idDocumento
-         AND categoria = 'Laboratorio'
-         AND especialidad = 'Hematología'"
+         AND categoria = 'Salud mental'
+         AND especialidad = 'Psicología'"
     );
     $documento = $resultadoDocumento->fetch_assoc();
 

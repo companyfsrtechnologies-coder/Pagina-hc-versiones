@@ -78,13 +78,15 @@
         <div class="btn-group">
           <div class="doc-header">
             <img src="../img/enfermedad-del-corazon.png" class="img-consulta" alt="Enfermedades cardiovasculares" />
-            <span>Cardiovascular</span>
+            <span>Enfermedades Cardiovasculares</span>
           </div>
           <details class="especialidad-panel">
             <summary>Ver especialidades</summary>
             <ul class="especialidad-menu">
-              <li><a href="#">Cardiología</a></li>
-              <li><a href="#">Cirugía cardiovascular</a></li>
+              <li><a href="cardiologia.php">Cardiología</a></li>
+              <li><a href="hemodinamia.php">Hemodinamia</a></li>
+              <li><a href="insuficiencia-cardiaca.php">Insuficiencia Cardiaca</a></li>
+              <li><a href="rehabilitacion-cardiovascular.php">Rehabilitación Cardiovascular</a></li>
             </ul>
           </details>
         </div>
