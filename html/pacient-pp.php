@@ -69,7 +69,7 @@
           <details class="especialidad-panel">
             <summary>Ver especialidades</summary>
             <ul class="especialidad-menu">
-              <li><a href="#">Psicología</a></li>
+              <li><a href="psicologia.php">Psicología</a></li>
               <li><a href="#">Psiquiatría</a></li>
             </ul>
           </details>
