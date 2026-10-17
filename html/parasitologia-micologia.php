@@ -56,12 +56,12 @@ $resultadoDocs = $conn->execute_query(
     <div class="universal-container-men-enf">
       <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="paciente-pp.php">
+          <a class="navbar-brand" href="pacient-pp.php">
             Documentación de consulta
           </a>
 
           <a class="btn btn-outline-light btn-sm"
-             href="paciente-pp.php">
+             href="pacient-pp.php">
             Volver
           </a>
         </div>
