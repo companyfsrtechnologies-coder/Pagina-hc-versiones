@@ -91,6 +91,7 @@
           <details class="especialidad-panel">
             <summary>Ver especialidades</summary>
             <ul class="especialidad-menu">
+              <li><a href="hemodinamia.php">Hemodinamia</a></li>
               <li><a href="insuficiencia-cardiaca.php">Insuficiencia cardíaca</a></li>
               <li><a href="rehabilitacion-cardiovascular.php">Rehabilitación cardiovascular</a></li>
               <li><a href="cardiologia.php">Cardiología</a></li>
