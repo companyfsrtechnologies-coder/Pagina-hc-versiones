@@ -226,6 +226,7 @@ $resultadoUsuarios = $conn->execute_query($sql);
               </td>
             </tr>
           <?php endif; ?>
+          
         </tbody>
       </table>
     </div>

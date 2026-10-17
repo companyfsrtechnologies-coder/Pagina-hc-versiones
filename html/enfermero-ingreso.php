@@ -70,6 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
             <input type="password" name="Password" class="form-control" id="validationDefault03" autocomplete="current-password" required />
           </div>
           <button class="btn btn-primary btn-ingresar" type="submit">Ingresar</button>
+          <a href="../index.php" class="paciente-btn-secondary">Volver al inicio</a>
         </form>
       </section>
     </main>
