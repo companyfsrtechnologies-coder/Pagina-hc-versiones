@@ -130,7 +130,7 @@
             <ul class="especialidad-menu">
               <li><a href="farmacia.php">Farmacia</a></li>
               <li><a href="informacion-medicamentos.php">Información sobre medicamentos</a></li>
-              <li><a href="guias-protocolos-terapeuticos.php">Guías y protocolos terapéuticos</a></li>
+              <li><a href="guias-protocolos.php">Guías y protocolos terapéuticos</a></li>
             </ul>
           </details>
         </div>
