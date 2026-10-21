@@ -42,8 +42,7 @@
             oncontextmenu="return false;"
           ></video>
           <li>
-            Para acceder a la sección de encuestas, deberá hacer clic en el botón "Encuestas" en el menú principal.
-            Esto lo llevará a la página de encuestas, donde podrá ver las encuestas disponibles y participar en ellas. Para participar, seleccione la encuesta deseada y siga las instrucciones proporcionadas.
+            Para acceder a la sección de encuestas, deberá hacer clic en el botón "Encuestas" en el menú principal. Esto lo llevará a la página principal del área, donde podrá ver los cuestionarios disponibles y participar en ellos. Para realizar uno, seleccione la opción deseada y siga las instrucciones proporcionadas.
           </li>
         </ul>
       </main>
