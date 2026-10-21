@@ -32,13 +32,7 @@
 
         <ul class="paciente-help-list">
           <li>
-            para aceder a la documentación debera acer clic en el boton de "ver especilidades" de la categoria corespodiente 
-            al documento que este buscando, luego de esto se le mostrara un listado de documentos disponibles para esa categoria, 
-            para ver el documento debera acer clic en el boton "ver documento" 
-            y se le abrira una lista de las especialidades de dicha categoría, 
-            seleccione la especialidad correspondiente y esto lo mandara a la página donde entrara los documentos. 
-            Al ingresar lo suigiente que debe haceer es seleccionar el documento que desea ver, hacer clic en el boton "ver documento" 
-            y esto lo mandara a la página donde se le mostrara el documento apretar el botón de leer ya estara dentro del documento.
+            Para acceder a la documentación deberá hacer clic en el botón de "Ver especialidades" de la categoría correspondiente al documento que esté buscando, luego de esto se le mostrará un listado de documentos disponibles para esa categoría, para ver el documento deberá hacer clic en el botón "Ver documento" y se le abrirá una lista de las especialidades de dicha categoría, seleccione la especialidad correspondiente y esto lo mandará a la página donde entrará a los documentos. Al ingresar, lo siguiente que debe hacer es seleccionar el documento que desea ver, haga clic en el botón "Ver documento" y esto lo mandará a la página donde se le mostrará el documento; al apretar el botón de leer, ya estará dentro del documento.
           </li>
           <video
             class="paciente-help-video"
