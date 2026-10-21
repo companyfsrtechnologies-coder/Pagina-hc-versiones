@@ -130,15 +130,18 @@ $resultadoPaginas = $conn->execute_query($sqlpagina);
                       <i class="fa-solid fa-edit"></i> <span>Editar</span>
                     </a>
                     
-                    <a
-                      href="borrar.php?id_documento=<?php echo $fila['id_documento']; ?>"
+                    <button
+                      type="button"
                       class="btn btn-outline-danger"
                       aria-label="Eliminar documento"
-                      onclick="return confirm('¿Seguro que deseas eliminar este documento?');"
+                      data-bs-toggle="modal"
+                      data-bs-target="#confirmarEliminacionDocumento"
+                      data-delete-url="borrar.php?id_documento=<?php echo (int)$fila['id_documento']; ?>"
+                      data-document-title="<?php echo htmlspecialchars($fila['titulo'], ENT_QUOTES, 'UTF-8'); ?>"
                     >
                       <i class="fa-solid fa-trash"></i>
                       <span class="d-none d-md-inline ms-1">Eliminar</span>
-                    </a>
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -160,5 +163,32 @@ $resultadoPaginas = $conn->execute_query($sqlpagina);
       </div>
       </div>
     </div>
+  <div class="modal fade" id="confirmarEliminacionDocumento" tabindex="-1" aria-labelledby="tituloConfirmacionEliminacion" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="tituloConfirmacionEliminacion">Eliminar documento</h2>
+        </div>
+        <div class="modal-body">
+          ¿Seguro que deseas eliminar <strong id="tituloDocumentoEliminar"></strong>? Esta acción no se puede deshacer.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <a href="#" id="confirmarEliminarDocumento" class="btn btn-danger">Eliminar documento</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const confirmacionEliminacionDocumento = document.getElementById('confirmarEliminacionDocumento');
+
+    confirmacionEliminacionDocumento.addEventListener('show.bs.modal', (event) => {
+      const botonEliminar = event.relatedTarget;
+      confirmacionEliminacionDocumento.querySelector('#tituloDocumentoEliminar').textContent =
+        botonEliminar.getAttribute('data-document-title');
+      confirmacionEliminacionDocumento.querySelector('#confirmarEliminarDocumento').href =
+        botonEliminar.getAttribute('data-delete-url');
+    });
+  </script>
   </body>
 </html>

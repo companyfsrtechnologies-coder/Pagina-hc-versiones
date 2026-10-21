@@ -205,15 +205,18 @@ $resultadoUsuarios = $conn->execute_query($sql);
                       <span class="d-none d-md-inline ms-1">Editar</span>
                     </a>
 
-                    <a
-                      href="borrar.php?id=<?= urlencode($fila['id_usuario']); ?>"
+                    <button
+                      type="button"
                       class="btn btn-outline-danger"
                       aria-label="Eliminar usuario"
-                      onclick="return confirm('¿Seguro que deseas eliminar este usuario?');"
+                      data-bs-toggle="modal"
+                      data-bs-target="#confirmarEliminacionUsuario"
+                      data-delete-url="borrar.php?id=<?= (int)$fila['id_usuario']; ?>"
+                      data-user-name="<?= htmlspecialchars($fila['nombre'], ENT_QUOTES, 'UTF-8'); ?>"
                     >
                       <i class="fa-solid fa-trash"></i>
                       <span class="d-none d-md-inline ms-1">Eliminar</span>
-                    </a>
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -232,6 +235,34 @@ $resultadoUsuarios = $conn->execute_query($sql);
     </div>
   </div>
   </section>
+  <div class="modal fade" id="confirmarEliminacionUsuario" tabindex="-1" aria-labelledby="tituloConfirmacionEliminacionUsuario" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="tituloConfirmacionEliminacionUsuario">Eliminar usuario</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          ¿Seguro que deseas eliminar al usuario <strong id="nombreUsuarioEliminar"></strong>? Esta acción no se puede deshacer.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <a href="#" id="confirmarEliminarUsuario" class="btn btn-danger">Eliminar usuario</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const confirmacionEliminacionUsuario = document.getElementById('confirmarEliminacionUsuario');
+
+    confirmacionEliminacionUsuario.addEventListener('show.bs.modal', (event) => {
+      const botonEliminar = event.relatedTarget;
+      confirmacionEliminacionUsuario.querySelector('#nombreUsuarioEliminar').textContent =
+        botonEliminar.getAttribute('data-user-name');
+      confirmacionEliminacionUsuario.querySelector('#confirmarEliminarUsuario').href =
+        botonEliminar.getAttribute('data-delete-url');
+    });
+  </script>
     </div>
   </body>
 </html>

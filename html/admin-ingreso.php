@@ -12,13 +12,14 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     $resultado = $conn->execute_query($sql);
     $resultadoUsuario = $resultado->fetch_assoc();
 
-    if (password_verify($password, $resultadoUsuario['contrasena'])) {
+    if (is_array($resultadoUsuario) && password_verify($password, $resultadoUsuario['contrasena'])) {
         $_SESSION['nombre'] = $resultadoUsuario['nombre'];
         $_SESSION['rol'] = $resultadoUsuario["rol"];
-        
-
         header("Location: admin-menu.php");
         exit;
+    }
+    else {
+        $error = "Nombre de usuario o contraseña incorrectos.";
     }
 }
 ?>

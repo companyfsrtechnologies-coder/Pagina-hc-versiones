@@ -37,6 +37,7 @@
              Le damos la bienvenida a nuestro portal de documentación médica, diseñado para facilitar a nuestros pacientes el acceso rápido y seguro a información, indicaciones y recomendaciones relacionadas con su atención en el hospital.
              Nuestro objetivo es acompañarlo y brindarle la información necesaria para el cuidado de su salud.
             </p>
+            <a href="prueba.sh" class="btn btn-primary btn-custom">prueba</a>
           </div>
         </section>
 
@@ -51,6 +52,7 @@
                   Acceda a su información, seguimiento y recursos de atención.
                 </p>
                 <a href="html/pacient-regist.php" class="btn btn-primary btn-custom">Entrar</a>
+
               </div>
             </article>
 
