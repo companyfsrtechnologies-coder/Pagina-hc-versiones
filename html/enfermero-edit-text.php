@@ -14,6 +14,15 @@ $datosDocumento = [
     'categoria' => '',
     'especialidad' => ''
 ];
+$especialidadesPorCategoria = [
+    'Estudios de laboratorio' => ['Hematología', 'Bioquímica', 'Microbiología', 'Parasitologia y Micologia'],
+    'Salud Mental' => ['Psicología', 'Psiquiatría'],
+    'Enfermedades cardiovasculares' => ['Cardiología', 'Insuficiencia cardíaca', 'Rehabilitación cardíovascular', 'Hemodinamia'],
+    'Diagnóstico por imágenes' => ['Imagenología', 'Tomografía', 'Medicina nuclear', 'Ecografía'],
+    'Atención de urgencias' => ['Emergencias', 'Traumatología', 'Urgencias oftalmológicas', 'Urgencias pediátricas', 'Urgencias ginecológicas', 'Urgencias urológicas', "atención de quemaduras", 'Reanimación cardiopulmonar', 'Atención de politraumatismo'],
+    'Tratamientos y medicamentos' => ['Farmacia', 'Información sobre medicamentos', 'Guías y protocolos terapéuticos'],
+    ];
+
 $resultadoPaginas = null;
 
 if ($_SERVER["REQUEST_METHOD"] == 'POST') {
@@ -24,48 +33,65 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     $contenidos = $_POST['contenido'] ?? [];
     $idPaginas = $_POST['id_pagina'] ?? [];
 
-    if ($idDocumento) {
-        $sqlUpdateDocumento = "UPDATE documento SET titulo = ?, categoria = ?, especialidad = ? WHERE id_documento = ?";
-        $stmtUpdateDocumento = $conn->prepare($sqlUpdateDocumento);
-        $stmtUpdateDocumento->bind_param("sssi", $titulo, $categoria, $especialidad, $idDocumento);
-        $stmtUpdateDocumento->execute();
+    if (!isset($especialidadesPorCategoria[$categoria]) || !in_array($especialidad, $especialidadesPorCategoria[$categoria], true)) {
+        $error = 'Selecciona una categoría y una especialidad válidas.';
+        $datosDocumento = [
+            'titulo' => $titulo,
+            'categoria' => $categoria,
+            'especialidad' => $especialidad
+        ];
+
+        if ($idDocumento) {
+            $sqlPaginas = "SELECT * FROM pagina_doc WHERE id_documento = ? ORDER BY numero_pagina ASC";
+            $stmtPaginas = $conn->prepare($sqlPaginas);
+            $stmtPaginas->bind_param("i", $idDocumento);
+            $stmtPaginas->execute();
+            $resultadoPaginas = $stmtPaginas->get_result();
+        }
     } else {
-        $sqlInsertDocumento = "INSERT INTO documento (titulo, categoria, especialidad, id_usuario) VALUES (?, ?, ?, ?)";
-        $stmtInsertDocumento = $conn->prepare($sqlInsertDocumento);
-        $stmtInsertDocumento->bind_param("sssi", $titulo, $categoria, $especialidad, $idUsuarioActual);
-        $stmtInsertDocumento->execute();
-        $idDocumento = $conn->insert_id;
-    }
-
-    foreach ($contenidos as $index => $contenido) {
-        $textoPagina = trim((string)$contenido);
-        $idPagina = isset($idPaginas[$index]) && $idPaginas[$index] !== '' ? (int)$idPaginas[$index] : 0;
-
-        if ($idPagina > 0) {
-            if ($textoPagina !== '') {
-                $sqlUpdatePagina = "UPDATE pagina_doc SET contenido = ? WHERE id_pagina = ? AND id_documento = ?";
-                $stmtUpdatePagina = $conn->prepare($sqlUpdatePagina);
-                $stmtUpdatePagina->bind_param("sii", $textoPagina, $idPagina, $idDocumento);
-                $stmtUpdatePagina->execute();
-            }
+        if ($idDocumento) {
+            $sqlUpdateDocumento = "UPDATE documento SET titulo = ?, categoria = ?, especialidad = ?, fecha_act = CURRENT_TIMESTAMP WHERE id_documento = ?";
+            $stmtUpdateDocumento = $conn->prepare($sqlUpdateDocumento);
+            $stmtUpdateDocumento->bind_param("sssi", $titulo, $categoria, $especialidad, $idDocumento);
+            $stmtUpdateDocumento->execute();
         } else {
-            if ($textoPagina !== '') {
-                $sqlUltimaPagina = "SELECT COALESCE(MAX(numero_pagina), 0) AS ultimo FROM pagina_doc WHERE id_documento = ?";
-                $stmtUltimaPagina = $conn->prepare($sqlUltimaPagina);
-                $stmtUltimaPagina->bind_param("i", $idDocumento);
-                $stmtUltimaPagina->execute();
-                $ultimoNumero = (int)($stmtUltimaPagina->get_result()->fetch_assoc()['ultimo'] ?? 0);
-                $numeroPagina = $ultimoNumero + 1;
-                $sqlInsertPagina = "INSERT INTO pagina_doc (id_documento, numero_pagina, contenido) VALUES (?, ?, ?)";
-                $stmtInsertPagina = $conn->prepare($sqlInsertPagina);
-                $stmtInsertPagina->bind_param("iis", $idDocumento, $numeroPagina, $textoPagina);
-                $stmtInsertPagina->execute();
+            $sqlInsertDocumento = "INSERT INTO documento (titulo, categoria, especialidad, id_usuario, fecha_act) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)";
+            $stmtInsertDocumento = $conn->prepare($sqlInsertDocumento);
+            $stmtInsertDocumento->bind_param("sssi", $titulo, $categoria, $especialidad, $idUsuarioActual);
+            $stmtInsertDocumento->execute();
+            $idDocumento = $conn->insert_id;
+        }
+
+        foreach ($contenidos as $index => $contenido) {
+            $textoPagina = trim((string)$contenido);
+            $idPagina = isset($idPaginas[$index]) && $idPaginas[$index] !== '' ? (int)$idPaginas[$index] : 0;
+
+            if ($idPagina > 0) {
+                if ($textoPagina !== '') {
+                    $sqlUpdatePagina = "UPDATE pagina_doc SET contenido = ? WHERE id_pagina = ? AND id_documento = ?";
+                    $stmtUpdatePagina = $conn->prepare($sqlUpdatePagina);
+                    $stmtUpdatePagina->bind_param("sii", $textoPagina, $idPagina, $idDocumento);
+                    $stmtUpdatePagina->execute();
+                }
+            } else {
+                if ($textoPagina !== '') {
+                    $sqlUltimaPagina = "SELECT COALESCE(MAX(numero_pagina), 0) AS ultimo FROM pagina_doc WHERE id_documento = ?";
+                    $stmtUltimaPagina = $conn->prepare($sqlUltimaPagina);
+                    $stmtUltimaPagina->bind_param("i", $idDocumento);
+                    $stmtUltimaPagina->execute();
+                    $ultimoNumero = (int)($stmtUltimaPagina->get_result()->fetch_assoc()['ultimo'] ?? 0);
+                    $numeroPagina = $ultimoNumero + 1;
+                    $sqlInsertPagina = "INSERT INTO pagina_doc (id_documento, numero_pagina, contenido) VALUES (?, ?, ?)";
+                    $stmtInsertPagina = $conn->prepare($sqlInsertPagina);
+                    $stmtInsertPagina->bind_param("iis", $idDocumento, $numeroPagina, $textoPagina);
+                    $stmtInsertPagina->execute();
+                }
             }
         }
-    }
 
-    header("Location: enfermero-edit-text.php?id=" . $idDocumento);
-    exit;
+        header("Location: enfermero-menu.php");
+        exit;
+    }
 }
 
 if ($_SERVER["REQUEST_METHOD"] == 'GET') {
@@ -129,17 +155,23 @@ if ($_SERVER["REQUEST_METHOD"] == 'GET') {
             border-color: #86b7fe;
         }
 
+        .form-select:disabled {
+            background-color: #f4f7fb;
+            color: #6c757d;
+        }
+
         textarea.form-control {
             min-height: 180px;
             resize: vertical;
         }
     </style>
+    <link rel="stylesheet" href="../css/botones-estilos.css" />
 </head>
 <body>
     <div class="container">
         <div class="card card-custom">
             <div class="card-header-custom">
-                <h1 class="h3 mb-0">Editar documento</h1>
+                <h1 class="h3 mb-0"><?= isset($idDocumento) ? 'Editar Documento' : 'Crear Documento'; ?></h1>
             </div>
             <div class="card-body p-4 p-md-5">
                 <form action="" method="POST">
@@ -148,6 +180,12 @@ if ($_SERVER["REQUEST_METHOD"] == 'GET') {
                     <?php endif; ?>
 
                     <div class="row g-4">
+                        <?php if (isset($error)): ?>
+                            <div class="col-12">
+                                <div class="alert alert-danger mb-0" role="alert"><?php echo htmlspecialchars($error); ?></div>
+                            </div>
+                        <?php endif; ?>
+
                         <div class="col-md-6">
                             <label for="titulo" class="form-label fw-semibold">Título</label>
                             <input type="text" class="form-control" id="titulo" name="titulo" value="<?php echo isset($datosDocumento['titulo']) ? htmlspecialchars($datosDocumento['titulo']) : ''; ?>" required>
@@ -155,12 +193,21 @@ if ($_SERVER["REQUEST_METHOD"] == 'GET') {
 
                         <div class="col-md-6">
                             <label for="categoria" class="form-label fw-semibold">Categoría</label>
-                            <input type="text" class="form-control" id="categoria" name="categoria" value="<?php echo isset($datosDocumento['categoria']) ? htmlspecialchars($datosDocumento['categoria']) : ''; ?>" required>
+                            <select class="form-select" id="categoria" name="categoria" required>
+                                <option value="" disabled <?php echo !isset($especialidadesPorCategoria[$datosDocumento['categoria']]) ? 'selected' : ''; ?>>Selecciona una categoría</option>
+                                <?php foreach ($especialidadesPorCategoria as $categoriaDisponible => $especialidades): ?>
+                                    <option value="<?php echo htmlspecialchars($categoriaDisponible); ?>" <?php echo ($datosDocumento['categoria'] ?? '') === $categoriaDisponible ? 'selected' : ''; ?>>
+                                        <?php echo htmlspecialchars($categoriaDisponible); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
 
                         <div class="col-12">
                             <label for="especialidad" class="form-label fw-semibold">Especialidad</label>
-                            <input type="text" class="form-control" id="especialidad" name="especialidad" value="<?php echo isset($datosDocumento['especialidad']) ? htmlspecialchars($datosDocumento['especialidad']) : ''; ?>" required>
+                            <select class="form-select" id="especialidad" name="especialidad" required disabled>
+                                <option value="" disabled selected>Primero selecciona una categoría</option>
+                            </select>
                         </div>
                         <div id="paginas-container">
                             <?php if ($resultadoPaginas && $resultadoPaginas->num_rows > 0): ?>
@@ -209,7 +256,9 @@ if ($_SERVER["REQUEST_METHOD"] == 'GET') {
                                 </button>
                                 <a href="enfermero-menu.php" class="btn btn-outline-secondary">Volver</a>
                             </div>
-                            <button type="submit" class="btn btn-primary px-4">Guardar cambios</button>
+                            <button type="submit" class="btn btn-primary px-4">
+                                <?= isset($idDocumento) ? 'Guardar cambios' : 'Crear documento'; ?>
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -236,6 +285,41 @@ if ($_SERVER["REQUEST_METHOD"] == 'GET') {
     </template>
 
     <script>
+        const especialidadesPorCategoria = <?php echo json_encode($especialidadesPorCategoria, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
+        const categoriaSelect = document.getElementById('categoria');
+        const especialidadSelect = document.getElementById('especialidad');
+        const categoriaSeleccionada = <?php echo json_encode($datosDocumento['categoria'], JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
+        const especialidadSeleccionada = <?php echo json_encode($datosDocumento['especialidad'], JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
+
+        function actualizarEspecialidades(valorSeleccionado = '') {
+            const especialidades = especialidadesPorCategoria[categoriaSelect.value] || [];
+            especialidadSelect.replaceChildren();
+
+            const opcionInicial = document.createElement('option');
+            opcionInicial.value = '';
+            opcionInicial.disabled = true;
+            opcionInicial.selected = !especialidades.includes(valorSeleccionado);
+            opcionInicial.textContent = especialidades.length
+                ? 'Selecciona una especialidad'
+                : 'Primero selecciona una categoría';
+            especialidadSelect.appendChild(opcionInicial);
+
+            especialidades.forEach((especialidad) => {
+                const opcion = document.createElement('option');
+                opcion.value = especialidad;
+                opcion.textContent = especialidad;
+                opcion.selected = especialidad === valorSeleccionado;
+                especialidadSelect.appendChild(opcion);
+            });
+
+            especialidadSelect.disabled = especialidades.length === 0;
+        }
+
+        categoriaSelect.addEventListener('change', () => actualizarEspecialidades());
+        actualizarEspecialidades(
+            categoriaSelect.value === categoriaSeleccionada ? especialidadSeleccionada : ''
+        );
+
         const paginasContainer = document.getElementById('paginas-container');
         const agregarPaginaBtn = document.getElementById('agregar-pagina');
         const alertaVacio = document.getElementById('alerta-vacio');

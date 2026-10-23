@@ -12,13 +12,14 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     $resultado = $conn->execute_query($sql);
     $resultadoUsuario = $resultado->fetch_assoc();
 
-    if (password_verify($password, $resultadoUsuario['contrasena'])) {
+    if (is_array($resultadoUsuario) && password_verify($password, $resultadoUsuario['contrasena'])) {
         $_SESSION['nombre'] = $resultadoUsuario['nombre'];
         $_SESSION['rol'] = $resultadoUsuario["rol"];
-        
-
         header("Location: admin-menu.php");
         exit;
+    }
+    else {
+        $error = "Nombre de usuario o contraseña incorrectos.";
     }
 }
 ?>
@@ -30,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     <title>Ingreso de administradores | HCV</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
     <link rel="stylesheet" href="../css/admin-and-enfermeros-estilos.css" />
+    <link rel="stylesheet" href="../css/botones-estilos.css" />
   </head>
   <body class="pagina-ingreso-admin">
     <main class="ingreso-admin">
@@ -59,6 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
             <input type="password" class="form-control" name="Password" id="validationDefault03" autocomplete="current-password" required />
           </div>
           <button class="btn btn-primary btn-ingresar" type="submit">Ingresar</button>
+          <a href="../index.php" class="paciente-btn-secondary">Volver al inicio</a>
         </form>
       </section>
     </main>

@@ -12,6 +12,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="css/index-estilos.css" />
+    <link rel="stylesheet" href="css/botones-estilos.css" />
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
@@ -36,6 +37,7 @@
              Le damos la bienvenida a nuestro portal de documentación médica, diseñado para facilitar a nuestros pacientes el acceso rápido y seguro a información, indicaciones y recomendaciones relacionadas con su atención en el hospital.
              Nuestro objetivo es acompañarlo y brindarle la información necesaria para el cuidado de su salud.
             </p>
+            
           </div>
         </section>
 
@@ -50,6 +52,7 @@
                   Acceda a su información, seguimiento y recursos de atención.
                 </p>
                 <a href="html/pacient-regist.php" class="btn btn-primary btn-custom">Entrar</a>
+
               </div>
             </article>
 

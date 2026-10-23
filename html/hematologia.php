@@ -36,6 +36,7 @@ $resultadoDocs = $conn->execute_query(
     <title>Documentos de Hematología</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../css/admin-and-enfermeros-estilos.css" />
+    <link rel="stylesheet" href="../css/botones-estilos.css" />
   </head>
   <body>
     <div class="universal-container-men-enf">

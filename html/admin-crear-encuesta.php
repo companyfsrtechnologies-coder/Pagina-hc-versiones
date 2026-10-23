@@ -62,6 +62,7 @@
         border: none;
       }
     </style>
+    <link rel="stylesheet" href="../css/botones-estilos.css" />
   </head>
 
   <body>
