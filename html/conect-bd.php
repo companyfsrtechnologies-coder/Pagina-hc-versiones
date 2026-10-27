@@ -1,7 +1,7 @@
 <?php
-$host = 'localhost';
+$host = '172.15.0.2';
 $usuario = 'root';
-$contrasena = ''; // en XAMPP, por defecto no hay contraseña
+$contrasena = 'root'; // en XAMPP, por defecto no hay contraseña
 $base_datos = 'sigsm_hospital';
 $conn = new mysqli($host, $usuario, $contrasena, $base_datos);
 if ($conn->connect_error) {
