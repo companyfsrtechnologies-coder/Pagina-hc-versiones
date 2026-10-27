@@ -11,8 +11,8 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
         $adminid = 1; // ID del administrador que crea la encuesta, se puede cambiar según la lógica de autenticación
 
         // La tabla encuesta no tiene columna categoria, por eso no se guarda
-        $sqlInsert = "INSERT INTO encuesta (titulo, descripcion, id_admin)
-        VALUES (?, ?, ?)";
+        $sqlInsert = "INSERT INTO encuesta (titulo, descripcion, id_admin, fecha_creacion)
+        VALUES (?, ?, ?, CURRENT_DATE)";
 
         $conn->execute_query($sqlInsert, [$titulo, $descripcion, $adminid]);
 

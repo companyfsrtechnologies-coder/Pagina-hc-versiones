@@ -5,9 +5,12 @@ session_start();
 
 require_once('conect-bd.php');
 $sql = "SELECT * FROM usuario";
-$sqlEncuestas = "SELECT * FROM encuesta";
-$resultadoEncuestas = $conn->execute_query($sqlEncuestas);
 $resultadoUsuarios = $conn->execute_query($sql);
+$sqlEncuestas = "SELECT * FROM encuesta;";
+
+$resultado = $conn->execute_query($sqlEncuestas);
+
+$datosEncuestas = $resultado->fetch_all(MYSQLI_ASSOC);
 
 
 
@@ -67,7 +70,7 @@ $resultadoUsuarios = $conn->execute_query($sql);
       </div>
 
       <a
-        href="admin-crear-encuesta.php"
+        href="../encuestas/admin-crear-encuesta.php"
         class="btn btn-success d-inline-flex align-items-center justify-content-center gap-2"
       >
         Nueva encuesta
@@ -86,8 +89,8 @@ $resultadoUsuarios = $conn->execute_query($sql);
         </thead>
 
         <tbody>
-          <?php if ($resultadoEncuestas->num_rows > 0): ?>
-            <?php foreach ($resultadoEncuestas as $fila): ?>
+          <?php if ($datosEncuestas): ?>
+            <?php foreach ($datosEncuestas as $fila): ?>
               <tr>
                 <td class="ps-4 fw-semibold text-dark">
                   <?php echo htmlspecialchars($fila['titulo']); ?>
@@ -101,7 +104,14 @@ $resultadoUsuarios = $conn->execute_query($sql);
 
                 <td>
                   <span class="badge text-bg-success rounded-pill px-3 py-2">
-                    <?php echo htmlspecialchars($fila['fecha_creacion']); ?>
+                    <?php
+                      $fechaCreacion = $fila['fecha_creacion'] ?? '';
+                      echo htmlspecialchars(
+                        $fechaCreacion === '' || substr($fechaCreacion, 0, 10) === '0000-00-00'
+                          ? 'Sin fecha registrada'
+                          : $fechaCreacion
+                      );
+                    ?>
                   </span>
                 </td>
 
@@ -116,15 +126,18 @@ $resultadoUsuarios = $conn->execute_query($sql);
                       <span class="d-none d-md-inline ms-1">Editar</span>
                     </a>
 
-                    <a
-                      href="borrar.php?id=<?php echo $fila['id_encuesta']; ?>"
+                    <button
+                      type="button"
                       class="btn btn-outline-danger"
                       aria-label="Eliminar encuesta"
-                      onclick="return confirm('¿Seguro que deseas eliminar esta encuesta?');"
+                      data-bs-toggle="modal"
+                      data-bs-target="#confirmarEliminacionEncuesta"
+                      data-delete-url="eliminar-encuesta.php?id=<?= (int)$fila['id_encuesta']; ?>"
+                      data-survey-title="<?= htmlspecialchars($fila['titulo'], ENT_QUOTES, 'UTF-8'); ?>"
                     >
                       <i class="fa-solid fa-trash"></i>
                       <span class="d-none d-md-inline ms-1">Eliminar</span>
-                    </a>
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -142,6 +155,23 @@ $resultadoUsuarios = $conn->execute_query($sql);
     </div>
   </div>
   </section>
+  <div class="modal fade" id="confirmarEliminacionEncuesta" tabindex="-1" aria-labelledby="tituloConfirmacionEliminacionEncuesta" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="tituloConfirmacionEliminacionEncuesta">Eliminar encuesta</h2>
+
+        </div>
+        <div class="modal-body">
+          ¿Seguro que deseas eliminar la encuesta <strong id="tituloEncuestaEliminar"></strong>? Esta acción no se puede deshacer.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <a href="#" id="confirmarEliminarEncuesta" class="btn btn-danger">Eliminar encuesta</a>
+        </div>
+      </div>
+    </div>
+  </div>
   <section class="altas-baja-mod-users container py-4">
       <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
       <div
@@ -211,7 +241,7 @@ $resultadoUsuarios = $conn->execute_query($sql);
                       aria-label="Eliminar usuario"
                       data-bs-toggle="modal"
                       data-bs-target="#confirmarEliminacionUsuario"
-                      data-delete-url="borrar.php?id=<?= (int)$fila['id_usuario']; ?>"
+                      data-delete-url="borrar.php?accion=eliminar_usuario&id=<?= (int)$fila['id_usuario']; ?>"
                       data-user-name="<?= htmlspecialchars($fila['nombre'], ENT_QUOTES, 'UTF-8'); ?>"
                     >
                       <i class="fa-solid fa-trash"></i>
@@ -253,6 +283,16 @@ $resultadoUsuarios = $conn->execute_query($sql);
     </div>
   </div>
   <script>
+    const confirmacionEliminacionEncuesta = document.getElementById('confirmarEliminacionEncuesta');
+
+    confirmacionEliminacionEncuesta.addEventListener('show.bs.modal', (event) => {
+      const botonEliminar = event.relatedTarget;
+      confirmacionEliminacionEncuesta.querySelector('#tituloEncuestaEliminar').textContent =
+        botonEliminar.getAttribute('data-survey-title');
+      confirmacionEliminacionEncuesta.querySelector('#confirmarEliminarEncuesta').href =
+        botonEliminar.getAttribute('data-delete-url');
+    });
+
     const confirmacionEliminacionUsuario = document.getElementById('confirmarEliminacionUsuario');
 
     confirmacionEliminacionUsuario.addEventListener('show.bs.modal', (event) => {
