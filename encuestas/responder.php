@@ -1,19 +1,33 @@
 <?php
 
+<<<<<<< HEAD
 require_once("../html/conect-bd.php");
 require_once("SistemaEncuestas.php");
 
 $sistema = new SistemaEncuestas($conn);
+=======
+require_once("conexion.php");
+require_once("SistemaEncuestas.php");
+
+$sistema = new SistemaEncuestas($conexion);
+>>>>>>> 237a3831ac6384806821db232ba47c3f3503fc89
 $sistema->cargarEncuestas();
 
 $encuesta = $sistema->getEncuesta($_GET['id']);
 $mensaje = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+<<<<<<< HEAD
     $cedula = $_POST['cedula'];
 
     if ($sistema->yaRespondio($encuesta, $cedula)) {
         $mensaje = "Esa cédula ya respondió esta encuesta.";
+=======
+    $email = $_POST['email'];
+
+    if ($sistema->yaRespondio($encuesta, $email)) {
+        $mensaje = "Ese email ya respondió esta encuesta.";
+>>>>>>> 237a3831ac6384806821db232ba47c3f3503fc89
     } else {
         // Cada respuesta recibe el valor que eligió el usuario
         foreach ($encuesta->getPreguntas() as $pregunta) {

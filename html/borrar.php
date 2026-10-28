@@ -2,23 +2,20 @@
 
 require_once('conect-bd.php');
 
-if ($_SERVER["REQUEST_METHOD"] == 'GET') {
-    if (isset($_GET['id'])) {
-        $idUsuario = $_GET['id'];
-        $sqlUsuario = "DELETE FROM usuario WHERE id_usuario ='$idUsuario';";
-        $resultadoUsuario = $conn->execute_query($sqlUsuario);
-        header("Location: admin-menu.php");
-        exit;
-    }
+if ($_SERVER["REQUEST_METHOD"] == 'GET' && ($_GET['accion'] ?? '') === 'eliminar_usuario' && isset($_GET['id'])) {
+    $idUsuario = $_GET['id'];
+    $sqlUsuario = "DELETE FROM usuario WHERE id_usuario = ?";
+    $conn->execute_query($sqlUsuario, [$idUsuario]);
+    header("Location: admin-menu.php");
+    exit;
 }
-if ($_SERVER["REQUEST_METHOD"] == 'GET') {
-    if (isset($_GET['id'])) {
-        $idEncuesta = $_GET['id'];
-        $sqlEncuesta = "DELETE FROM encuesta WHERE id_encuesta ='$idEncuesta';";
-        $resultadoEncuesta = $conn->execute_query($sqlEncuesta);
-        header("Location: admin-menu.php");
-        exit;
-    }
+
+if ($_SERVER["REQUEST_METHOD"] == 'GET' && ($_GET['accion'] ?? '') === 'eliminar_encuesta' && isset($_GET['id'])) {
+    $idEncuesta = $_GET['id'];
+    $sqlEncuesta = "DELETE FROM encuesta WHERE id_encuesta = ?";
+    $conn->execute_query($sqlEncuesta, [$idEncuesta]);
+    header("Location: admin-menu.php");
+    exit;
 }
 if ($_SERVER["REQUEST_METHOD"] == 'GET') {
     if (isset($_GET['id_documento'])) {
@@ -38,5 +35,3 @@ if ($_SERVER["REQUEST_METHOD"] == 'GET') {
         exit;
     }
 } 
-
-

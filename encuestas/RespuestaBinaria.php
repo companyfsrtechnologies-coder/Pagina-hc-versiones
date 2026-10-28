@@ -1,4 +1,8 @@
 <?php
+<<<<<<< HEAD
+=======
+
+>>>>>>> 237a3831ac6384806821db232ba47c3f3503fc89
 require_once("Respuesta.php");
 
 class RespuestaBinaria extends Respuesta
