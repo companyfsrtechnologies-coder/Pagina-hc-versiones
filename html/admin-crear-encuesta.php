@@ -1,3 +1,54 @@
+<?php
+
+session_start();
+
+require_once("conect-bd.php");
+require_once("../encuestas/SistemaEncuestas.php");
+
+$sistema = new SistemaEncuestas($conn);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $titulo = trim($_POST['titulo'] ?? '');
+    $descripcion = trim($_POST['descripcion'] ?? '');
+    $datosPreguntas = $_POST['preguntas'] ?? [];
+
+    if ($titulo === '' || $descripcion === '' || empty($datosPreguntas)) {
+        header("Location: admin-crear-encuesta.php");
+        exit;
+    }
+
+    $encuesta = new Encuesta(null, $titulo, $descripcion);
+
+    foreach ($datosPreguntas as $datosPregunta) {
+        $textoPregunta = trim($datosPregunta['texto'] ?? '');
+        $tipo = $datosPregunta['tipo'] ?? 'texto';
+
+        if ($textoPregunta === '') {
+            continue;
+        }
+
+        $respuesta = $sistema->crearRespuesta($tipo);
+        if ($respuesta === null) {
+            $respuesta = $sistema->crearRespuesta('texto');
+        }
+
+        $pregunta = new Pregunta(null, $textoPregunta, $respuesta);
+        $encuesta->agregarPregunta($pregunta);
+    }
+
+    $idAdmin = isset($_SESSION['id_usuario']) ? (int) $_SESSION['id_usuario'] : 0;
+
+    if ($idAdmin <= 0) {
+        header("Location: admin-ingreso.php");
+        exit;
+    }
+
+    $sistema->guardarEncuesta($encuesta, $idAdmin);
+
+    header("Location: admin-menu.php");
+    exit;
+}
+?>
 <!doctype html>
 <html lang="es">
   <head>
@@ -23,12 +74,19 @@
       }
 
       input,
-      select {
+      select,
+      textarea {
         width: 100%;
         padding: 10px;
         margin-top: 5px;
         margin-bottom: 15px;
         box-sizing: border-box;
+      }
+
+      textarea {
+        min-height: 100px;
+        resize: vertical;
+        font-family: Arial, sans-serif;
       }
 
       .pregunta {
@@ -69,23 +127,39 @@
     <div class="contenedor">
       <h1>Crear encuesta</h1>
 
-      <label> Título de la encuesta </label>
+      <form id="encuestaForm" method="POST">
+        <label> Título de la encuesta </label>
 
-      <input
-        type="text"
-        id="titulo"
-        placeholder="Ej: Encuesta de satisfacción"
-      />
+        <input
+          type="text"
+          id="titulo"
+          name="titulo"
+          placeholder="Ej: Encuesta de satisfacción"
+          required
+        />
 
-      <div id="preguntas"></div>
+        <label> Descripción de la encuesta </label>
 
-      <button class="agregar" onclick="agregarPregunta()">
-        + Agregar pregunta
-      </button>
+        <textarea
+          id="descripcion"
+          name="descripcion"
+          placeholder="Describe el propósito de la encuesta"
+          required
+        ></textarea>
 
-      <br />
+        <div id="preguntas"></div>
+        <div id="preguntasFormulario"></div>
 
-      <button class="publicar" onclick="crearEncuesta()">Crear encuesta</button>
+        <button type="button" class="agregar" onclick="agregarPregunta()">
+          + Agregar pregunta
+        </button>
+
+        <br />
+
+        <button type="button" class="publicar" onclick="crearEncuesta()">
+          Crear encuesta
+        </button>
+      </form>
     </div>
 
     <script>
@@ -126,12 +200,12 @@
                         Respuesta de texto
                     </option>
 
-                    <option value="multiple">
-                        Opción múltiple
+                    <option value="binaria">
+                        Sí / No
                     </option>
 
-                    <option value="unica">
-                        Una sola opción
+                    <option value="escala">
+                        Escala de 1 a 10
                     </option>
 
                 </select>
@@ -178,11 +252,18 @@
       }
 
       function crearEncuesta() {
-        const titulo = document.getElementById("titulo").value;
+        const titulo = document.getElementById("titulo").value.trim();
+        const descripcion = document.getElementById("descripcion").value.trim();
 
         if (titulo === "") {
           alert("Escribí un título para la encuesta.");
+          document.getElementById("titulo").focus();
+          return;
+        }
 
+        if (descripcion === "") {
+          alert("Escribí una descripción para la encuesta.");
+          document.getElementById("descripcion").focus();
           return;
         }
 
@@ -190,11 +271,36 @@
 
         if (preguntas.length === 0) {
           alert("Agregá al menos una pregunta.");
-
           return;
         }
 
-        alert("¡Encuesta creada correctamente!");
+        const preguntasFormulario = document.getElementById("preguntasFormulario");
+        preguntasFormulario.innerHTML = "";
+
+        for (let i = 0; i < preguntas.length; i++) {
+          const texto = preguntas[i].querySelector(".textoPregunta").value.trim();
+          const tipo = preguntas[i].querySelector(".tipoRespuesta").value;
+
+          if (texto === "") {
+            alert("Completá el texto de todas las preguntas.");
+            preguntas[i].querySelector(".textoPregunta").focus();
+            return;
+          }
+
+          preguntasFormulario.insertAdjacentHTML("beforeend", `
+            <input type="hidden" name="preguntas[${i}][texto]" value="${escapeHtml(texto)}">
+            <input type="hidden" name="preguntas[${i}][tipo]" value="${tipo}">
+          `);
+        }
+
+        document.getElementById("encuestaForm").submit();
+
+      }
+
+      function escapeHtml(texto) {
+        const elemento = document.createElement("div");
+        elemento.textContent = texto;
+        return elemento.innerHTML;
       }
     </script>
   </body>

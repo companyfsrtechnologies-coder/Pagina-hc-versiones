@@ -2,14 +2,16 @@
 
 class Encuesta
 {
+    private $id;
     private $titulo;
     private $descripcion;
     private $estado;
     private $categoria;
     private $listaPreguntas = array();
 
-    public function __construct(string $titulo, string $descripcion, string $categoria)
+    public function __construct($id = null, $titulo = "", $descripcion = "", $categoria = "general")
     {
+        $this->id = $id;
         $this->titulo = $titulo;
         $this->descripcion = $descripcion;
         $this->categoria = $categoria;
@@ -18,8 +20,23 @@ class Encuesta
 
     public function crearPregunta()
     {
-        $pregunta = new Pregunta("titulo pregunta", "texto pregunnta");
-        array_push($this->listaPreguntas, $pregunta);
+        $pregunta = new Pregunta(null, "Título de la pregunta", new RespuestaTexto());
+        $this->listaPreguntas[] = $pregunta;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getTitulo()
+    {
+        return $this->titulo;
+    }
+
+    public function getDescripcion()
+    {
+        return $this->descripcion;
     }
 
     public function getTituloYDescripcion()
@@ -34,10 +51,15 @@ class Encuesta
 
     public function agregarPregunta(Pregunta $pregunta)
     {
-        array_push($this->listaPreguntas, $pregunta);
+        $this->listaPreguntas[] = $pregunta;
     }
 
     public function getListaPreguntas()
+    {
+        return $this->listaPreguntas;
+    }
+
+    public function getPreguntas()
     {
         return $this->listaPreguntas;
     }

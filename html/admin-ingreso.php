@@ -13,6 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     $resultadoUsuario = $resultado->fetch_assoc();
 
     if (is_array($resultadoUsuario) && password_verify($password, $resultadoUsuario['contrasena'])) {
+        $_SESSION['id_usuario'] = (int) $resultadoUsuario['id_usuario'];
         $_SESSION['nombre'] = $resultadoUsuario['nombre'];
         $_SESSION['rol'] = $resultadoUsuario["rol"];
         header("Location: admin-menu.php");
