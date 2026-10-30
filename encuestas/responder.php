@@ -1,16 +1,9 @@
 <?php
 
-<<<<<<< HEAD
-require_once("../html/conect-bd.php");
-require_once("SistemaEncuestas.php");
-
-$sistema = new SistemaEncuestas($conn);
-=======
 require_once("conexion.php");
 require_once("SistemaEncuestas.php");
 
 $sistema = new SistemaEncuestas($conexion);
->>>>>>> 237a3831ac6384806821db232ba47c3f3503fc89
 $sistema->cargarEncuestas();
 
 $encuesta = $sistema->getEncuesta($_GET['id']);
