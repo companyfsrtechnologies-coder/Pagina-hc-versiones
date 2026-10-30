@@ -1,9 +1,9 @@
 <?php
 
-require_once("../html/conect-bd.php");
+require_once(__DIR__ . "/../html/conect-bd.php");
 require_once("SistemaEncuestas.php");
 
-$sistema = new SistemaEncuestas($conn);
+$sistema = new SistemaEncuestas($conexion);
 $sistema->cargarEncuestas();
 
 $encuesta = $sistema->getEncuesta($_GET['id']);

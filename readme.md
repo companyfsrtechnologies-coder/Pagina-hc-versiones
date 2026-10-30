@@ -51,7 +51,7 @@ La plataforma busca centralizar la consulta de documentos médicos, organizar la
 ```text
 Pagina-hc-versiones/
 ├── css/       # Hojas de estilo
-├── html/      # Páginas PHP y funcionalidades
+├── html/      # Páginas PHP, accesos y documentos médicos
 ├── img/       # Imágenes y recursos gráficos
 ├── js/        # Scripts JavaScript
 ├── video/     # Recursos audiovisuales
@@ -96,8 +96,22 @@ Abrí el panel de control de XAMPP e iniciá:
 
 1. Abrí [phpMyAdmin](http://localhost/phpmyadmin/).
 2. Prepará la base de datos que requiere el proyecto.
-3. Configurá la conexión en el archivo `html/conect-bd.php`.
-4. Verificá que el servidor, el nombre de la base de datos, el usuario y la contraseña coincidan con tu instalación.
+3. Importá `sigsm_hospital_corregida.sql` desde phpMyAdmin. El script crea la estructura
+   de la base    `sigsm_hospital_corregida`; el script también crea la base si no existe:
+
+   ```sql
+   CREATE DATABASE sigsm_hospital_corregida
+     CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+   ```
+
+   El esquema incluye `paginas_doc`, la tabla que almacena el contenido paginado
+   asociado a cada documento.
+4. La conexión se configura en `html/conect-bd.php`. Por defecto usa `127.0.0.1`,
+   el puerto `3306`, el usuario `root`, contraseña vacía y la base
+   `sigsm_hospital_corregida`.
+5. Para otra instalación, definí estas variables de entorno antes de iniciar Apache:
+   `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER` y `DB_PASSWORD`. No guardes
+   contraseñas reales en el repositorio.
 
 Si disponés de un archivo SQL con la estructura y los datos iniciales, importalo desde phpMyAdmin. La configuración exacta depende de los archivos de base de datos disponibles para esta versión.
 

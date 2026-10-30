@@ -1,6 +1,6 @@
 <?php
 
-require_once("conexion.php");
+require_once(__DIR__ . "/../html/conect-bd.php");
 require_once("SistemaEncuestas.php");
 
 $sistema = new SistemaEncuestas($conexion);
@@ -10,17 +10,22 @@ $encuesta = $sistema->getEncuesta($_GET['id']);
 $mensaje = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-<<<<<<< HEAD
-    $cedula = $_POST['cedula'];
+    $cedula = filter_var($_POST['cedula'] ?? '', FILTER_VALIDATE_INT);
+    $idPaciente = null;
 
-    if ($sistema->yaRespondio($encuesta, $cedula)) {
-        $mensaje = "Esa cédula ya respondió esta encuesta.";
-=======
-    $email = $_POST['email'];
+    if ($cedula !== false) {
+        $consultaPaciente = $conn->prepare(
+            'SELECT id FROM paciente WHERE cedula = ? LIMIT 1'
+        );
+        $consultaPaciente->bind_param('i', $cedula);
+        $consultaPaciente->execute();
+        $idPaciente = $consultaPaciente->get_result()->fetch_assoc()['id'] ?? null;
+    }
 
-    if ($sistema->yaRespondio($encuesta, $email)) {
-        $mensaje = "Ese email ya respondió esta encuesta.";
->>>>>>> 237a3831ac6384806821db232ba47c3f3503fc89
+    if (!$idPaciente) {
+        $mensaje = "No se encontró un paciente con esa cédula.";
+    } elseif ($sistema->yaRespondio($encuesta, $idPaciente)) {
+        $mensaje = "Ese paciente ya respondió esta encuesta.";
     } else {
         // Cada respuesta recibe el valor que eligió el usuario
         foreach ($encuesta->getPreguntas() as $pregunta) {
@@ -28,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $pregunta->getRespuesta()->setValor($valor);
         }
 
-        $sistema->guardarRespuestas($encuesta, $email);
+        $sistema->guardarRespuestas($encuesta, $idPaciente);
 
         header("Location: gracias.php");
         exit;
@@ -42,34 +47,70 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <head>
     <meta charset="UTF-8">
-    <title><?= $encuesta->getTitulo() ?></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><?= htmlspecialchars($encuesta->getTitulo()) ?></title>
+    <link rel="stylesheet" href="../css/paciente-estilos.css">
+    <link rel="stylesheet" href="../css/botones-estilos.css">
 </head>
 
-<body>
-    <h1><?= $encuesta->getTitulo() ?></h1>
-    <p><?= $encuesta->getDescripcion() ?></p>
+<body class="body-docsconsulta">
+    <div class="universal-container-pacient-dc encuesta-respuesta-container">
+        <nav class="navbar navbar-dark">
+            <div class="container-fluid">
+                <section class="pantallas-secundarias">
+                    <span class="eyebrow">Participación del paciente</span>
+                    <h1>Responder encuesta</h1>
+                    <p>Completá tus respuestas para ayudarnos a mejorar.</p>
+                </section>
+            </div>
+        </nav>
 
-    <p style="color: red"><?= $mensaje ?></p>
+        <header class="header-docsconsulta encuestas-header">
+            <div class="cabecera-texto">
+                <div class="titulo-hospital">HOSPITAL DE CLÍNICAS</div>
+                <div class="subtitulo-hospital">Dr. Manuel Quintela</div>
+            </div>
+            <a href="index.php" class="btn btn-primary btn-help">Volver a encuestas</a>
+        </header>
 
-    <form method="POST">
-        <p>
-            <label>Tu email</label><br>
-            <input type="email" name="email" required>
-        </p>
+        <main class="encuesta-respuesta-content">
+            <section class="encuesta-respuesta-intro">
+                <span class="encuestas-kicker">Encuesta seleccionada</span>
+                <h2><?= htmlspecialchars($encuesta->getTitulo()) ?></h2>
+                <p><?= htmlspecialchars($encuesta->getDescripcion()) ?></p>
+            </section>
 
-        <?php foreach ($encuesta->getPreguntas() as $pregunta): ?>
-            <fieldset>
-                <legend><?= $pregunta->getTexto() ?></legend>
+            <?php if ($mensaje !== ""): ?>
+                <div class="encuesta-alert" role="alert">
+                    <?= htmlspecialchars($mensaje) ?>
+                </div>
+            <?php endif; ?>
 
-                <!-- Cada tipo de respuesta sabe dibujar su propio campo -->
-                <?= $pregunta->getRespuesta()->mostrarHtml("respuestas[" . $pregunta->getId() . "]") ?>
-            </fieldset>
-        <?php endforeach; ?>
+            <form method="POST" class="encuesta-form">
+                <div class="encuesta-identificacion">
+                    <label for="cedula">Cédula del paciente</label>
+                    <input type="number" id="cedula" name="cedula" min="1" inputmode="numeric" required>
+                    <small>Usaremos este dato para registrar tu participación.</small>
+                </div>
 
-        <p><input type="submit" value="Enviar"></p>
-    </form>
+                <?php foreach ($encuesta->getPreguntas() as $numero => $pregunta): ?>
+                    <fieldset class="pregunta-card">
+                        <legend>
+                            <span class="pregunta-numero"><?= $numero + 1 ?></span>
+                            <?= htmlspecialchars($pregunta->getTexto()) ?>
+                        </legend>
+                        <div class="respuesta-control">
+                            <?= $pregunta->getRespuesta()->mostrarHtml("respuestas[" . $pregunta->getId() . "]") ?>
+                        </div>
+                    </fieldset>
+                <?php endforeach; ?>
 
-    <p><a href="index.php">Volver</a></p>
+                <button class="btn btn-primary encuesta-submit" type="submit">
+                    Enviar respuestas
+                </button>
+            </form>
+        </main>
+    </div>
 </body>
 
 </html>

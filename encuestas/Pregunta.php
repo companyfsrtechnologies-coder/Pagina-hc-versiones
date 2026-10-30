@@ -3,18 +3,14 @@
 class Pregunta
 {
     private $id;
-    private $titulo;
     private $texto;
     private $respuesta;
-    private $obligatoria;
 
-    public function __construct($id = null, $texto = "", $respuesta = null)
+    public function __construct($id, $texto, $respuesta)
     {
         $this->id = $id;
-        $this->titulo = $texto;
         $this->texto = $texto;
         $this->respuesta = $respuesta;
-        $this->obligatoria = true;
     }
 
     public function getId()
@@ -27,13 +23,14 @@ class Pregunta
         return $this->texto;
     }
 
-    public function getTipo()
-    {
-        return $this->respuesta ? $this->respuesta->getTipo() : "texto";
-    }
-
     public function getRespuesta()
     {
         return $this->respuesta;
+    }
+
+    // El tipo de la pregunta lo sabe su respuesta
+    public function getTipo()
+    {
+        return $this->respuesta->getTipo();
     }
 }
