@@ -31,14 +31,15 @@ class SistemaEncuestas
     }
 
     // Lee la base de datos y arma los objetos
-    public function cargarEncuestas()
+    public function cargarEncuestas($soloPublicadas = true)
     {
         $this->encuestas = [];
 
+        $filtroEstado = $soloPublicadas ? "WHERE estado = 'Publicada'" : "";
         $filasEncuestas = $this->conexion->query(
             "SELECT id_encuesta, titulo, descripcion
              FROM encuesta
-             WHERE estado = 'Publicada'
+             $filtroEstado
              ORDER BY fecha_public DESC"
         )->fetch_all(MYSQLI_ASSOC);
 
@@ -134,6 +135,93 @@ class SistemaEncuestas
         }
     }
 
+    public function actualizarEncuesta($encuesta)
+    {
+        if (!$encuesta->getId() || $encuesta->getPreguntas() === []) {
+            throw new RuntimeException('La encuesta debe tener un identificador y al menos una pregunta.');
+        }
+
+        $this->conexion->begin_transaction();
+
+        try {
+            if ($this->conexion->execute_query(
+                "UPDATE encuesta SET titulo = ?, descripcion = ? WHERE id_encuesta = ?",
+                [$encuesta->getTitulo(), $encuesta->getDescripcion(), $encuesta->getId()]
+            ) === false) {
+                throw new RuntimeException($this->conexion->error);
+            }
+
+            $preguntasExistentes = $this->conexion->execute_query(
+                "SELECT id_pregunta FROM pregunta WHERE id_encuesta = ?",
+                [$encuesta->getId()]
+            )->fetch_all(MYSQLI_ASSOC);
+            $idsExistentes = array_map(
+                static fn($pregunta) => (int) $pregunta['id_pregunta'],
+                $preguntasExistentes
+            );
+            $idsRecibidos = [];
+
+            foreach ($encuesta->getPreguntas() as $pregunta) {
+                $tipo = $pregunta->getTipo();
+                if (!in_array($tipo, ['binaria', 'escala', 'texto'], true)) {
+                    throw new RuntimeException('Tipo de pregunta inválido.');
+                }
+
+                if ($pregunta->getId()) {
+                    if (!in_array((int) $pregunta->getId(), $idsExistentes, true)) {
+                        throw new RuntimeException('La pregunta no pertenece a esta encuesta.');
+                    }
+
+                    $resultado = $this->conexion->execute_query(
+                        "UPDATE pregunta
+                         SET texto = ?, tipo = ?
+                         WHERE id_pregunta = ? AND id_encuesta = ?",
+                        [$pregunta->getTexto(), $tipo, $pregunta->getId(), $encuesta->getId()]
+                    );
+                    if ($resultado === false) {
+                        throw new RuntimeException($this->conexion->error);
+                    }
+                    $idsRecibidos[] = (int) $pregunta->getId();
+                } else {
+                    $resultado = $this->conexion->execute_query(
+                        "INSERT INTO pregunta (id_encuesta, texto, tipo) VALUES (?, ?, ?)",
+                        [$encuesta->getId(), $pregunta->getTexto(), $tipo]
+                    );
+                    if ($resultado === false) {
+                        throw new RuntimeException($this->conexion->error);
+                    }
+                }
+            }
+
+            foreach ($preguntasExistentes as $preguntaExistente) {
+                $idPregunta = (int) $preguntaExistente['id_pregunta'];
+                if (!in_array($idPregunta, $idsRecibidos, true)) {
+                    if ($this->conexion->execute_query(
+                        "DELETE FROM respuesta WHERE id_pregunta = ?",
+                        [$idPregunta]
+                    ) === false) {
+                        throw new RuntimeException($this->conexion->error);
+                    }
+                    if ($this->conexion->execute_query(
+                        "DELETE FROM pregunta WHERE id_pregunta = ? AND id_encuesta = ?",
+                        [$idPregunta, $encuesta->getId()]
+                    ) === false) {
+                        throw new RuntimeException($this->conexion->error);
+                    }
+                }
+            }
+
+            $this->conexion->commit();
+        } catch (Throwable $error) {
+            $this->conexion->rollback();
+            throw new RuntimeException(
+                'No se pudo actualizar la encuesta: ' . $error->getMessage(),
+                0,
+                $error
+            );
+        }
+    }
+
     public function yaRespondio($encuesta, $idPaciente)
     {
         $resultado = $this->conexion->execute_query(
@@ -146,15 +234,32 @@ class SistemaEncuestas
 
     public function guardarRespuestas($encuesta, $idPaciente)
     {
-        $this->conexion->execute_query(
-            "INSERT INTO partisipacion (id_paciente, id_encuesta) VALUES (?, ?)",
-            [$idPaciente, $encuesta->getId()]
-        );
+        $this->conexion->begin_transaction();
 
-        foreach ($encuesta->getPreguntas() as $pregunta) {
-            $this->conexion->execute_query(
-                "INSERT INTO respuesta (id_pregunta, valor) VALUES (?, ?)",
-                [$pregunta->getId(), $pregunta->getRespuesta()->getValor()]
+        try {
+            if ($this->conexion->execute_query(
+                "INSERT INTO partisipacion (id_paciente, id_encuesta) VALUES (?, ?)",
+                [$idPaciente, $encuesta->getId()]
+            ) === false) {
+                throw new RuntimeException($this->conexion->error);
+            }
+
+            foreach ($encuesta->getPreguntas() as $pregunta) {
+                if ($this->conexion->execute_query(
+                    "INSERT INTO respuesta (id_pregunta, valor) VALUES (?, ?)",
+                    [$pregunta->getId(), $pregunta->getRespuesta()->getValor()]
+                ) === false) {
+                    throw new RuntimeException($this->conexion->error);
+                }
+            }
+
+            $this->conexion->commit();
+        } catch (Throwable $error) {
+            $this->conexion->rollback();
+            throw new RuntimeException(
+                'No se pudieron guardar las respuestas: ' . $error->getMessage(),
+                0,
+                $error
             );
         }
     }

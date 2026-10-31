@@ -11,7 +11,11 @@ class RespuestaEscala extends Respuesta
 
     public function mostrarHtml($nombre): string
     {
-        return "<input type='number' name='$nombre' min='1' max='10' required>";
+        return "<label class='escala-opcion'><input type='radio' name='$nombre' value='1' required> 1 - Mal</label>
+                <label class='escala-opcion'><input type='radio' name='$nombre' value='2'> 2</label>
+                <label class='escala-opcion'><input type='radio' name='$nombre' value='3'> 3</label>
+                <label class='escala-opcion'><input type='radio' name='$nombre' value='4'> 4</label>
+                <label class='escala-opcion'><input type='radio' name='$nombre' value='5'> 5 - Excelente</label>";
     }
 
     public function mostrarResultado($valores): string

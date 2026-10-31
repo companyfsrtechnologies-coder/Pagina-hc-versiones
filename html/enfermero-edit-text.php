@@ -15,13 +15,21 @@ $datosDocumento = [
     'especialidad' => ''
 ];
 $especialidadesPorCategoria = [
-    'Estudios de laboratorio' => ['Hematología', 'Bioquímica', 'Microbiología', 'Parasitologia y Micologia'],
+    'Estudios de laboratorio' => ['Hematología', 'Bioquímica', 'Microbiología', 'Parasitología y micología'],
+    'Laboratorio' => ['Hematología', 'Bioquímica', 'Microbiología'],
     'Salud Mental' => ['Psicología', 'Psiquiatría'],
+    'Salud mental' => ['Psicología', 'Psiquiatría'],
     'Enfermedades cardiovasculares' => ['Cardiología', 'Insuficiencia cardíaca', 'Rehabilitación cardíovascular', 'Hemodinamia'],
+    'Estudios Cardiovascular' => ['Cardiología', 'Insuficiencia Cardiaca', 'Rehabilitación Cardiovascular', 'Hemodinamia'],
     'Diagnóstico por imágenes' => ['Imagenología', 'Tomografía', 'Medicina nuclear', 'Ecografía'],
-    'Atención de urgencias' => ['Emergencias', 'Traumatología', 'Urgencias oftalmológicas', 'Urgencias pediátricas', 'Urgencias ginecológicas', 'Urgencias urológicas', "atención de quemaduras", 'Reanimación cardiopulmonar', 'Atención de politraumatismo'],
-    'Tratamientos y medicamentos' => ['Farmacia', 'Información sobre medicamentos', 'Guías y protocolos terapéuticos'],
-    ];
+    'Documentos de Laboratorio' => ['Medicina Nuclear'],
+    'Atención de urgencias' => ['Emergencia', 'Medicina de urgencias', 'Urgencias oftalmológicas', 'Urgencias urológicas', 'Atención de politraumatismos'],
+    'Tratamientos y medicamentos' => ['Farmacia', 'Farmacología', 'Información sobre medicamentos', 'Guías y protocolos terapéuticos'],
+    'Salud renal' => ['Nefrología', 'Hemodiálisis'],
+    'Enfermedades infecciosas' => ['Infectología'],
+    'Consultas clínicas' => ['Medicina Interna'],
+    'Enfermedades y especialidades' => ['Endocrinología'],
+];
 
 $resultadoPaginas = null;
 
@@ -377,4 +385,3 @@ if ($_SERVER["REQUEST_METHOD"] == 'GET') {
     </script>
 </body>
 </html>
-

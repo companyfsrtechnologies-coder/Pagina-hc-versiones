@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 
 
@@ -156,8 +156,8 @@ $datosEncuestas = $resultado->fetch_all(MYSQLI_ASSOC);
           <?php else: ?>
             <tr>
               <td colspan="5" class="text-center py-5 text-secondary">
-                <i class="fa-solid fa-users-slash fs-3 d-block mb-3"></i>
-                No hay usuarios registrados.
+                <i class="fa-solid fa-file-circle-xmark fs-3 d-block mb-3"></i>
+                No hay encuestas registradas.
               </td>
             </tr>
           <?php endif; ?>

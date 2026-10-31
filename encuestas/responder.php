@@ -33,10 +33,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $pregunta->getRespuesta()->setValor($valor);
         }
 
-        $sistema->guardarRespuestas($encuesta, $idPaciente);
-
-        header("Location: gracias.php");
-        exit;
+        try {
+            $sistema->guardarRespuestas($encuesta, $idPaciente);
+            header("Location: gracias.php");
+            exit;
+        } catch (RuntimeException $error) {
+            $mensaje = $error->getMessage();
+        }
     }
 }
 

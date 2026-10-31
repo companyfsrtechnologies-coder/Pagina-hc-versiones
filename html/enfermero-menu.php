@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 
 if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'enfermero') {
@@ -141,7 +141,7 @@ $resultadoPaginas = null;
           <?php else: ?>
             <tr>
               <td colspan="5" class="text-center py-5 text-secondary">
-                <i class="fa-solid fa-users-slash fs-3 d-block mb-3"></i>
+                <i class="fa-solid fa-file-circle-xmark fs-3 d-block mb-3"></i>
                 No hay documentos registrados.
               </td>
             </tr>
